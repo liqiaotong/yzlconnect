@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yunzhiling.yzlconnect.view.AnRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_corners_solid_3789ff_00adf0">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:indeterminateTint="#FFFFFF"
+        android:indeterminateTintMode="src_atop"
+        android:layout_centerInParent="true"
+        android:alpha="0"/>
+
+    <TextView
+        android:id="@+id/tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp" />
+
+</com.yunzhiling.yzlconnect.view.AnRelativeLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wifi_scan_null"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/state_iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:src="@mipmap/icon_list_empty" />
+
+    <TextView
+        android:id="@+id/wifi_scan_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center"
+        android:text="搜索不到WiFi\n已打开GPS定位服务\n后再次点击重新搜索"
+        android:textSize="16sp" />
+
+    <com.yunzhiling.yzlconnect.view.AnButton
+        android:id="@+id/retry_tv"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/background_corners_solid_3789ff_00adf0"
+        android:gravity="center"
+        android:text="重新搜索"
+        android:layout_marginBottom="30dp"
+        android:textColor="#ffffff" />
+
+</LinearLayout>

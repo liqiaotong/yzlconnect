@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <com.yunzhiling.yzlconnect.view.AnLinearLayout
+            android:id="@+id/back"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="9dp"
+                android:layout_height="18dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_back" />
+
+        </com.yunzhiling.yzlconnect.view.AnLinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="云智铃配网"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="30dp"
+        android:outlineSpotShadowColor="#C3D5FF"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="50dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="50dp">
+
+            <com.yunzhiling.yzlconnect.view.AnRelativeLayout
+                android:id="@+id/autoConnect"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/background_corners_solid_3789ff_00adf0_8">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_hot" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="一键配网"
+                    android:textColor="#ffffffff"
+                    android:textSize="15sp" />
+
+            </com.yunzhiling.yzlconnect.view.AnRelativeLayout>
+
+            <com.yunzhiling.yzlconnect.view.AnButton
+                android:id="@+id/manualConnect"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/background_corners_stroke_3789ff_8"
+                android:gravity="center"
+                android:text="热点配网"
+                android:textColor="#ff3789ff"
+                android:textSize="15sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/idea"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_idea" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="如果一键配网不成功可尝试热点配网"
+                    android:textColor="#a6a6a6"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|bottom">
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:textColor="#9e9e9e"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

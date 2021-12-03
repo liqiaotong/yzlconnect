@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AnView">
+        <attr name="av_scaleStart" format="float" />
+        <attr name="av_scaleEnd" format="float" />
+        <attr name="av_duration" format="integer" />
+    </declare-styleable>
+</resources>

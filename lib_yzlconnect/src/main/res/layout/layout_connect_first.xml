@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="30dp"
+        android:outlineSpotShadowColor="#C3D5FF"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="将设备设置为配网模式"
+                android:textColor="#ff000000"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tips1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="1、设备接通电源，开启设备"
+                android:textColor="#ff000000"
+                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/tips2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="2、长按设备配网按钮，切换设备至配网模式"
+                android:textColor="#ff000000"
+                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tips1" />
+
+            <TextView
+                android:id="@+id/tips3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="3、设备三灯闪烁，即进入配网模式"
+                android:textColor="#ff000000"
+                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tips2" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/next"
+                app:layout_constraintTop_toBottomOf="@id/tips3">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_device_tips" />
+
+                <ImageView
+                    android:id="@+id/light"
+                    android:layout_width="200dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_deivce_light" />
+
+            </RelativeLayout>
+
+            <com.yunzhiling.yzlconnect.view.AnConfirmButton
+                android:id="@+id/next"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

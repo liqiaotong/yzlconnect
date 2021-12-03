@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <com.yunzhiling.yzlconnect.view.AnLinearLayout
+            android:id="@+id/back"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="9dp"
+                android:layout_height="18dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_back" />
+
+        </com.yunzhiling.yzlconnect.view.AnLinearLayout>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="#3789FF" />
+
+    </RelativeLayout>
+
+</LinearLayout>
