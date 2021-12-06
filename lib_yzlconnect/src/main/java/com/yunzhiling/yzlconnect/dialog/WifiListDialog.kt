@@ -153,12 +153,12 @@ class WifiListDialog : Dialog {
         wifiProgressBar?.visibility = View.GONE
         var wifiList: List<WifiEntity>? = scanResults?.filter {
             !TextUtils.isEmpty(it.SSID?.trim()) && !Config.deviceWifis?.any { its -> TextUtils.equals(it.SSID, its.first) }
-        }?.sortedBy { it.level.compareTo(it.level) }?.map {
+        }?.map {
             val wifiLevel = android.net.wifi.WifiManager.calculateSignalLevel(it.level, 100)
             var is2G: Boolean? = false
             var is5G: Boolean? = false
             when (it.frequency) {
-                in 2401..2499 -> {
+                in 0..2499 -> {
                     is2G = true
                 }
                 in 4901..5899 -> {
@@ -178,6 +178,15 @@ class WifiListDialog : Dialog {
                 nWifiList.add(iv)
             }
         }
+
+        val S2GWifi = nWifiList?.filter { it.is2G == true && it.isMix != true }
+        val SMixWifi = nWifiList?.filter { it.isMix == true}
+        val S5GWifi = nWifiList?.filter { it.is5G == true && it.isMix != true }
+
+        nWifiList.clear()
+        nWifiList.addAll(S2GWifi)
+        nWifiList.addAll(SMixWifi)
+        nWifiList.addAll(S5GWifi)
 
         listener?.scanResult(nWifiList)
         wifiAdapter?.updateData(nWifiList)

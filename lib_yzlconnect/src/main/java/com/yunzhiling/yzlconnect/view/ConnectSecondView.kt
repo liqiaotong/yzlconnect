@@ -210,7 +210,7 @@ class ConnectSecondView : FrameLayout {
                             var is2G: Boolean? = false
                             var is5G: Boolean? = false
                             when (its.frequency) {
-                                in 2401..2499 -> {
+                                in 0..2499 -> {
                                     is2G = true
                                 }
                                 in 4901..5899 -> {
@@ -251,7 +251,7 @@ class ConnectSecondView : FrameLayout {
         ssidEt?.setText(ssid)
 
         when (frequency) {
-            in 2401..2499 -> {
+            in 0..2499 -> {
                 tips?.text = tips2G
                 tips?.setTextColor(Color.parseColor("#3789FF"))
                 isCurrentSelected5GWifi = false
