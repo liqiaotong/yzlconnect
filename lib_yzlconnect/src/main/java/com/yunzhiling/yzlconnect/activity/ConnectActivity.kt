@@ -1,21 +1,28 @@
 package com.yunzhiling.yzlconnect.activity
 
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.webkit.WebSettings
+import android.webkit.WebView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.ViewPager
 import com.tencent.mmkv.MMKV
 import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.adapter.ViewPagerAdapter
+import com.yunzhiling.yzlconnect.common.Config
 import com.yunzhiling.yzlconnect.entity.Latlng
 import com.yunzhiling.yzlconnect.service.WifiManager
 import com.yunzhiling.yzlconnect.view.*
 import kotlinx.android.synthetic.main.activity_connect.*
+import kotlinx.android.synthetic.main.activity_connect.back
+import kotlinx.android.synthetic.main.activity_web.*
 import kotlin.system.exitProcess
 
 class ConnectActivity : CommonActivtiy() {
@@ -26,6 +33,7 @@ class ConnectActivity : CommonActivtiy() {
     private val cursorSelectedBackground = R.drawable.background_corners_solid_3789ff
     private var isAutoConnectMode = false
     private var isConnectedSuccess = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,7 +117,7 @@ class ConnectActivity : CommonActivtiy() {
 
                         val turnToPage = if (isAutoConnectMode) 3 else 4
                         Log.d("message", "OnConnectFourthListener turnToPage $turnToPage")
-                        viewPager?.setCurrentItem(turnToPage,true)
+                        viewPager?.setCurrentItem(turnToPage, true)
                     }
                 }
             })
@@ -168,6 +176,8 @@ class ConnectActivity : CommonActivtiy() {
         })
         cursorProgress(0)
     }
+
+
 
     private fun cursorProgress(index: Int) {
         if (index in 0..(if (isAutoConnectMode) 3 else 4)) {

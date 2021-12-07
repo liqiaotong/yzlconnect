@@ -1,6 +1,7 @@
 package com.yunzhiling.yzlconnect.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ class WifiListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private var context: Context? = null
     private var list: MutableList<WifiEntity>? = null
+    private val colorEnable = Color.parseColor("#FF000000")
+    private val colorDisable = Color.parseColor("#8E8E8E")
 
     private lateinit var listener: OnWifiListAdapterListener
 
@@ -76,18 +79,24 @@ class WifiListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder is ViewHolder) {
 
             var wifi = this.list?.get(position)
+            var isEnable: Boolean
             holder.name.text = wifi?.ssid
             when {
                 wifi?.isMix == true -> {
+                    isEnable = true
                     holder.frequency.text = "2.4G/5G"
                 }
                 wifi?.is5G == true -> {
+                    isEnable = false
                     holder.frequency.text = "5G"
                 }
                 wifi?.is2G == true -> {
+                    isEnable = true
                     holder.frequency.text = "2.4G"
+
                 }
                 else -> {
+                    isEnable = true
                     holder.frequency.text = ""
                 }
             }
@@ -97,15 +106,32 @@ class WifiListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
 
+            if (isEnable) {
+                holder.frequency.setTextColor(colorEnable)
+                holder.name.setTextColor(colorEnable)
+            } else {
+                holder.frequency.setTextColor(colorDisable)
+                holder.name.setTextColor(colorDisable)
+            }
+
             val wifiLevelResource = when {
                 wifi?.level ?: 0 >= 80 -> {
-                    R.mipmap.icon_wifi_leve_3
+                    if (isEnable)
+                        R.mipmap.icon_wifi_leve_3
+                    else
+                        R.mipmap.icon_wifi_leve_un_3
                 }
                 wifi?.level ?: 0 >= 40 -> {
-                    R.mipmap.icon_wifi_leve_2
+                    if (isEnable)
+                        R.mipmap.icon_wifi_leve_2
+                    else
+                        R.mipmap.icon_wifi_leve_un_2
                 }
                 wifi?.level ?: 0 >= 15 -> {
-                    R.mipmap.icon_wifi_leve_1
+                    if (isEnable)
+                        R.mipmap.icon_wifi_leve_1
+                    else
+                        R.mipmap.icon_wifi_leve_un_1
                 }
                 else -> {
                     R.mipmap.icon_wifi_leve_0

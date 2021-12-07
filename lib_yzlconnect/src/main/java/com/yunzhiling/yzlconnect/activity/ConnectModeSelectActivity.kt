@@ -2,18 +2,24 @@ package com.yunzhiling.yzlconnect.activity
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tencent.mmkv.MMKV
 import com.yunzhiling.yzlconnect.R
+import com.yunzhiling.yzlconnect.common.Config
 import com.yunzhiling.yzlconnect.service.WifiManager
 import kotlinx.android.synthetic.main.activity_connect.*
 import kotlinx.android.synthetic.main.activity_mode_select.*
 import kotlinx.android.synthetic.main.activity_mode_select.back
+import kotlinx.android.synthetic.main.activity_web.*
 import kotlin.system.exitProcess
 
 class ConnectModeSelectActivity : CommonActivtiy() {
@@ -24,6 +30,7 @@ class ConnectModeSelectActivity : CommonActivtiy() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mode_select)
         initView()
+        advanceLoadMoreHelp()
     }
 
     private fun initView() {
@@ -38,6 +45,24 @@ class ConnectModeSelectActivity : CommonActivtiy() {
         }
         manualConnect?.setOnClickListener {
             startActivity(Intent(this, ConnectActivity::class.java))
+        }
+    }
+
+    private fun advanceLoadMoreHelp() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            WebView(this)?.apply {
+                settings?.apply {
+                    setAppCachePath(Config.moreHelpUrl)
+                    setAppCacheMaxSize(20 * 1024 * 1024)
+                    setAppCacheEnabled(true)
+                }
+                webViewClient = object : WebViewClient() {
+                    override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                        return false
+                    }
+                }
+                loadUrl(Config.moreHelpUrl)
+            }
         }
     }
 

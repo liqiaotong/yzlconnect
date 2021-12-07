@@ -292,11 +292,11 @@ class ConnectSecondView : FrameLayout {
         }
         val regex = Regex("[{}\":,]")
         if(regex.containsMatchIn(input = ssid) ){
-            Toast.makeText(context, "网络名称不能存在以下字符：{}\":,", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "WiFi名中有以下符号  {} \"\" :  , 无法配网", Toast.LENGTH_SHORT).show()
             return
         }
         if(regex.containsMatchIn(password)){
-            Toast.makeText(context, "密码不能存在以下字符：{}\":,", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "密码中有以下符号  {} \"\" :  , 无法配网", Toast.LENGTH_SHORT).show()
             return
         }
 

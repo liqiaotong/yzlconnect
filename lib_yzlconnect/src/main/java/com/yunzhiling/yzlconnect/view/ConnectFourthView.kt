@@ -325,7 +325,7 @@ class ConnectFourthView : FrameLayout {
                                         } ?: run {
                                             if (currentCheckTimes < 10) {
                                                 currentCheckTimes++
-                                                check(3000)
+                                                check(2000)
                                             } else {
                                                 checkDeviceWifiNullAction?.let {
                                                     it()

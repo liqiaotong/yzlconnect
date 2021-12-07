@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.FrameLayout
 import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.activity.WebActivity
+import com.yunzhiling.yzlconnect.common.Config
 import kotlinx.android.synthetic.main.layout_connect_status.view.*
 
 
@@ -84,7 +85,7 @@ class ConnectStatusView : FrameLayout {
         more?.setOnClickListener {
             val intent = Intent(context, WebActivity::class.java)
             intent.putExtra("title", "WiFi配置失败问题排查")
-            intent.putExtra("url", "https://www.yunzhiling.com/open/more.html")
+            intent.putExtra("url", Config.moreHelpUrl)
             context.startActivity(intent)
         }
 
