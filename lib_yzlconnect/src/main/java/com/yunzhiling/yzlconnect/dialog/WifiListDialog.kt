@@ -179,9 +179,9 @@ class WifiListDialog : Dialog {
             }
         }
 
-        val S2GWifi = nWifiList?.filter { it.is2G == true && it.isMix != true }
-        val SMixWifi = nWifiList?.filter { it.isMix == true}
-        val S5GWifi = nWifiList?.filter { it.is5G == true && it.isMix != true }
+        val S2GWifi = nWifiList?.filter { it.is2G == true && it.isMix != true }?.sortedByDescending { it.level }
+        val SMixWifi = nWifiList?.filter { it.isMix == true}?.sortedByDescending { it.level }
+        val S5GWifi = nWifiList?.filter { it.is5G == true && it.isMix != true }?.sortedByDescending { it.level }
 
         nWifiList.clear()
         nWifiList.addAll(S2GWifi)
