@@ -83,13 +83,13 @@ class WifiManager {
         private var wifiConnectStatusHandler: Handler? = null
         private var wifiConnectStatusRunnable: Runnable? = null
 
-        fun closeCheckWifiConnect() {
+        fun closeCheckWifiConnectStatus() {
             wifiConnectStatusRunnable?.let {
                 wifiConnectStatusHandler?.removeCallbacks(it)
             }
         }
 
-        fun checkWifiConnect(
+        fun checkWifiConnectStatus(
             ssid: String? = "",
             checkTimes: Int? = 30,
             checkInterval: Long? = 1000,

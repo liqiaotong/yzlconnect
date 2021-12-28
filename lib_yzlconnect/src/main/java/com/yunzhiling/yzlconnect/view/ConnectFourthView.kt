@@ -141,9 +141,7 @@ class ConnectFourthView : FrameLayout {
                     }
 
                     override fun openWifiError() {
-                        activity?.runOnUiThread {
-                            listener?.complete(code_connect_error)
-                        }
+                        connectDeviceError()
                     }
                 }
             )
@@ -165,6 +163,12 @@ class ConnectFourthView : FrameLayout {
             }, delay ?: 0)
         }
 
+    }
+
+    private fun connectDeviceError(){
+        activity?.runOnUiThread {
+            listener?.complete(code_connect_error)
+        }
     }
 
     private fun searchDeviceError() {
