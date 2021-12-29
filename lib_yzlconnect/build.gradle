@@ -6,8 +6,8 @@ plugins {
 }
 
 ext {
-    vc = 11
-    vn = "1.8.2"
+    vc = 12
+    vn = "1.8.3"
 }
 
 task generateSourcesJar(type: Jar) {

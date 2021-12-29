@@ -16,8 +16,6 @@ import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.common.Config
 import com.yunzhiling.yzlconnect.entity.Latlng
 import com.yunzhiling.yzlconnect.service.*
-import kotlinx.android.synthetic.main.layout_connect_first.view.*
-import kotlinx.android.synthetic.main.layout_connect_first.view.next
 import kotlinx.android.synthetic.main.layout_connect_fourth.view.*
 
 class ConnectFourthView : FrameLayout {
