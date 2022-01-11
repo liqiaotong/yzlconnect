@@ -2,34 +2,29 @@ package com.yunzhiling.yzlconnect.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
 import android.location.LocationManager
 import android.net.wifi.ScanResult
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.adapter.OnWifiListAdapterListener
 import com.yunzhiling.yzlconnect.adapter.WifiListAdapter
-import com.yunzhiling.yzlconnect.common.Config
+import com.yunzhiling.yzlconnect.common.AnsConfig
 import com.yunzhiling.yzlconnect.entity.WifiEntity
 import com.yunzhiling.yzlconnect.service.WifiManager
 import com.yunzhiling.yzlconnect.service.WifiScanListener
 import com.yunzhiling.yzlconnect.service.WifiStatusListener
-import com.yunzhiling.yzlconnect.view.AnButton
-import kotlinx.android.synthetic.main.layout_confirm_button_yc.*
+import com.yunzhiling.yzlconnect.utils.AnsHandlerHelper
+import com.yunzhiling.yzlconnect.view.AnsButton
 
 class WifiListDialog : Dialog {
 
@@ -66,7 +61,7 @@ class WifiListDialog : Dialog {
         recyclerview = view?.findViewById(R.id.recyclerview)
         refreshLayout = view?.findViewById(R.id.refreshLayout)
         wifiProgressBar = view?.findViewById(R.id.wifi_pb)
-        view?.findViewById<AnButton>(R.id.tv_addwifi)?.setOnClickListener {
+        view?.findViewById<AnsButton>(R.id.tv_addwifi)?.setOnClickListener {
             listener?.addWifiClick()
         }
         recyclerview?.layoutManager = LinearLayoutManager(context)
@@ -121,30 +116,25 @@ class WifiListDialog : Dialog {
             }
         }
 
-        Looper.myLooper()?.let {
-            val handler = Handler(it)
-            handler?.post {
-                WifiManager.openWifi(object : WifiStatusListener {
-                    override fun isWifiEnable(isWifiEnable: Boolean) {
-                        WifiManager.closeOpenWifi()
-                        if (isWifiEnable) {
-                            WifiManager.scanWifi(object : WifiScanListener {
-                                override fun result(result: List<ScanResult>) {
-                                    WifiManager.closeScanWifi()
-                                    handler?.postDelayed({
-                                        updateList(result)
-                                    }, 500)
-                                }
-                            })
-                        } else {
-                            handler?.postDelayed({
-                                updateList(null)
-                            }, 0)
-                        }
+        AnsHandlerHelper.loop({
+            WifiManager.openWifi(object : WifiStatusListener {
+                override fun isWifiEnable(isWifiEnable: Boolean) {
+                    WifiManager.closeOpenWifi()
+                    if (isWifiEnable) {
+                        WifiManager.scanWifi(object : WifiScanListener {
+                            override fun result(result: List<ScanResult>) {
+                                WifiManager.closeScanWifi()
+                                AnsHandlerHelper.loop({
+                                    updateList(result)
+                                }, 500)
+                            }
+                        })
+                    } else {
+                        updateList(null)
                     }
-                })
-            }
-        }
+                }
+            })
+        })
     }
 
     private fun updateList(scanResults: List<ScanResult>?) {
@@ -152,7 +142,12 @@ class WifiListDialog : Dialog {
         recyclerview?.visibility = View.VISIBLE
         wifiProgressBar?.visibility = View.GONE
         var wifiList: List<WifiEntity>? = scanResults?.filter {
-            !TextUtils.isEmpty(it.SSID?.trim()) && !Config.deviceWifis?.any { its -> TextUtils.equals(it.SSID, its.first) }
+            !TextUtils.isEmpty(it.SSID?.trim()) && !AnsConfig.deviceWifis?.any { its ->
+                TextUtils.equals(
+                    it.SSID,
+                    its.first
+                )
+            }
         }?.map {
             val wifiLevel = android.net.wifi.WifiManager.calculateSignalLevel(it.level, 100)
             var is2G: Boolean? = false
@@ -179,9 +174,11 @@ class WifiListDialog : Dialog {
             }
         }
 
-        val S2GWifi = nWifiList?.filter { it.is2G == true && it.isMix != true }?.sortedByDescending { it.level }
-        val SMixWifi = nWifiList?.filter { it.isMix == true}?.sortedByDescending { it.level }
-        val S5GWifi = nWifiList?.filter { it.is5G == true && it.isMix != true }?.sortedByDescending { it.level }
+        val S2GWifi = nWifiList?.filter { it.is2G == true && it.isMix != true }
+            ?.sortedByDescending { it.level }
+        val SMixWifi = nWifiList?.filter { it.isMix == true }?.sortedByDescending { it.level }
+        val S5GWifi = nWifiList?.filter { it.is5G == true && it.isMix != true }
+            ?.sortedByDescending { it.level }
 
         nWifiList.clear()
         nWifiList.addAll(S2GWifi)

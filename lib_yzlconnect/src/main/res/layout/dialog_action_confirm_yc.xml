@@ -50,7 +50,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="15dp">
 
-                <com.yunzhiling.yzlconnect.view.AnButton
+                <com.yunzhiling.yzlconnect.view.AnsButton
                     android:id="@+id/cancel"
                     android:visibility="gone"
                     android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                     android:layout_height="0dp"
                     android:visibility="gone"/>
 
-                <com.yunzhiling.yzlconnect.view.AnConfirmButton
+                <com.yunzhiling.yzlconnect.view.AnsConfirmButton
                     android:id="@+id/confirm"
                     android:layout_width="match_parent"
                     android:layout_height="42dp"

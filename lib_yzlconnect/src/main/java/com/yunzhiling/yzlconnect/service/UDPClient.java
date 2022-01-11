@@ -29,7 +29,7 @@ public class UDPClient {
     private volatile static boolean isReceiveZore = false;
 
     public static void udpConnect(int port, String ssid, String password, double lng, double lat, ConnectCallback connectCallback) throws UnknownHostException, IOException {
-        Log.d("message", "yzlconnect----------->udpConnect");
+        Log.d("yzlconnect","----------->udpConnect");
         socket = new DatagramSocket(9999);
         socket.setSoTimeout(45000);
         try {
@@ -45,9 +45,9 @@ public class UDPClient {
             }
             if (checkRunnable == null) {
                 checkRunnable = () -> {
-                    Log.d("message", "yzlconnect----------->udp connect 15 second");
+                    Log.d("yzlconnect","----------->udp connect 15 second");
                     if (!isConnected) {
-                        Log.d("message", "yzlconnect----------->udp timeout");
+                        Log.d("yzlconnect","----------->udp timeout");
                         if (connectCallback != null) connectCallback.timeout();
                         close();
                     }
@@ -58,7 +58,7 @@ public class UDPClient {
                 handler.postDelayed(checkRunnable, 47000);
             }
         } catch (Exception e) {
-            Log.d("message", "yzlconnect----------->udp connect fail");
+            Log.d("yzlconnect","----------->udp connect fail");
             if (connectCallback != null) connectCallback.fail();
         }
     }
@@ -72,7 +72,7 @@ public class UDPClient {
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, address, PORT);
                 int currentSendTimes = 0;
                 while (currentSendTimes < sendTimes) {
-                    Log.d("message", "yzlconnect----------->udp send ok times:" + currentSendTimes);
+                    Log.d("yzlconnect","----------->udp send ok times:" + currentSendTimes);
                     try {
                         socket.send(packet);
                     } catch (Exception e) {
@@ -87,22 +87,22 @@ public class UDPClient {
                 }
                 close();
             } catch (Exception e) {
-                Log.d("message", "yzlconnect----------->udp send ok error");
+                Log.d("yzlconnect","----------->udp send ok error");
                 close();
             }
         }
     }
 
     private static void sendConnectData(String message, ConnectCallback connectCallback) {
-        Log.d("message", "yzlconnect----------->udp send data");
+        Log.d("yzlconnect","----------->udp send data");
         try {
             byte[] buf = message.getBytes();
             InetAddress address = InetAddress.getByName(HOST);
             DatagramPacket packet = new DatagramPacket(buf, buf.length, address, PORT);
             int currentSendTimes = 0;
-            Log.d("message", "yzlconnect----------->udp send data isRunning:"+isRunning+"  isConnected:"+isConnected+"  socket is not null:"+(socket!=null)+"   isReceiveZore:"+isReceiveZore);
+            Log.d("yzlconnect","----------->udp send data isRunning:"+isRunning+"  isConnected:"+isConnected+"  socket is not null:"+(socket!=null)+"   isReceiveZore:"+isReceiveZore);
             while (isRunning && !isConnected && socket != null && !socket.isClosed() && currentSendTimes < 50 && !isReceiveZore) {
-                Log.d("message", "yzlconnect----------->udp send times:" + currentSendTimes);
+                Log.d("yzlconnect","----------->udp send times:" + currentSendTimes);
                 try {
                     socket.send(packet);
                 } catch (Exception e) {
@@ -116,14 +116,14 @@ public class UDPClient {
                 currentSendTimes++;
             }
         } catch (Exception e) {
-            Log.d("message", "yzlconnect----------->udp send error");
+            Log.d("yzlconnect","----------->udp send error");
             close();
             if (connectCallback != null) connectCallback.fail();
         }
     }
 
     private static void readConnectData(ConnectCallback connectCallback) {
-        Log.d("message", "yzlconnect----------->udp read");
+        Log.d("yzlconnect","----------->udp read");
         if (isRunning) {
             try {
                 byte[] recBuf = new byte[1024];
@@ -149,11 +149,11 @@ public class UDPClient {
                             JSONObject jsonObject = new JSONObject(recvContent);
                             code = jsonObject.getString("code");
                         } catch (Exception e) {
-                            Log.d("message", "yzlconnect----------->udp read json error");
+                            Log.d("yzlconnect","----------->udp read json error");
                             code = "";
                         }
                         if (code != null) {
-                            Log.d("message", "yzlconnect----------->udp read code:" + code);
+                            Log.d("yzlconnect","----------->udp read code:" + code);
                         }
                         if (TextUtils.equals(code, "0")) {
                             isReceiveZore = true;
@@ -174,7 +174,7 @@ public class UDPClient {
                     }
                 }
             } catch (Exception e) {
-                Log.d("message", "yzlconnect----------->udp read error message:" + e.getMessage());
+                Log.d("yzlconnect","----------->udp read error message:" + e.getMessage());
                 if (socket != null && !socket.isClosed() && !isConnected)
                     readConnectData(connectCallback);
             }
@@ -182,7 +182,7 @@ public class UDPClient {
     }
 
     public static void close() {
-        Log.d("message", "yzlconnect----------->udp close");
+        Log.d("yzlconnect","----------->udp close");
         isConnected = false;
         isRunning = false;
         try {

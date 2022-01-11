@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
-        <com.yunzhiling.yzlconnect.view.AnLinearLayout
+        <com.yunzhiling.yzlconnect.view.AnsLinearLayout
             android:id="@+id/back"
             android:layout_width="45dp"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/icon_back" />
 
-        </com.yunzhiling.yzlconnect.view.AnLinearLayout>
+        </com.yunzhiling.yzlconnect.view.AnsLinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             android:paddingRight="20dp"
             android:paddingBottom="50dp">
 
-            <com.yunzhiling.yzlconnect.view.AnRelativeLayout
+            <com.yunzhiling.yzlconnect.view.AnsRelativeLayout
                 android:id="@+id/autoConnect"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -80,9 +80,9 @@
                     android:textColor="#ffffffff"
                     android:textSize="15sp" />
 
-            </com.yunzhiling.yzlconnect.view.AnRelativeLayout>
+            </com.yunzhiling.yzlconnect.view.AnsRelativeLayout>
 
-            <com.yunzhiling.yzlconnect.view.AnButton
+            <com.yunzhiling.yzlconnect.view.AnsButton
                 android:id="@+id/manualConnect"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

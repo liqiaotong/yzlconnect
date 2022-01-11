@@ -3,10 +3,7 @@ package com.yunzhiling.yzlconnect.view
 import android.Manifest
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.pm.PackageManager
-import android.os.Handler
-import android.os.Looper
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +15,8 @@ import com.tencent.map.geolocation.TencentLocationManager
 import com.tencent.map.geolocation.TencentLocationRequest
 import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.entity.Latlng
-import com.yunzhiling.yzlconnect.utils.SharedPreferenceUtils
+import com.yunzhiling.yzlconnect.utils.AnsHandlerHelper
+import com.yunzhiling.yzlconnect.utils.AnsSharedPreferenceUtils
 import kotlinx.android.synthetic.main.layout_connect_first.view.*
 
 class ConnectFirstView : FrameLayout {
@@ -58,11 +56,9 @@ class ConnectFirstView : FrameLayout {
             })
         }
         startLightAnimation()
-        Looper.myLooper()?.let {
-            Handler(it).postDelayed({ getPermission() }, 300)
-        } ?: run {
-            getPermission()
-        }
+
+        AnsHandlerHelper.loop({ getPermission() }, 300)
+
         getLocation()
     }
 
@@ -83,17 +79,17 @@ class ConnectFirstView : FrameLayout {
 
     private fun getLocation() {
 
-        val locationTimestamp = SharedPreferenceUtils.getLong("location_timestamp")
-        if (locationTimestamp != null && locationTimestamp > 0 && (System.currentTimeMillis() - locationTimestamp) <= (1000*60*15/*15分钟*/)) {
-            val locationLat = SharedPreferenceUtils.getFloat("location_lat")
-            val locationLng = SharedPreferenceUtils.getFloat("location_lng")
+        val locationTimestamp = AnsSharedPreferenceUtils.getLong("location_timestamp")
+        if (locationTimestamp != null && locationTimestamp > 0 && (System.currentTimeMillis() - locationTimestamp) <= (1000 * 60 * 15/*15分钟*/)) {
+            val locationLat = AnsSharedPreferenceUtils.getFloat("location_lat")
+            val locationLng = AnsSharedPreferenceUtils.getFloat("location_lng")
             if (locationLat > 0 && locationLng > 0) {
                 latlng = Latlng(locationLat.toDouble(), locationLng.toDouble())
-            }else{
+            } else {
                 latlng = null
             }
-        }else{
-                latlng = null
+        } else {
+            latlng = null
         }
 
         if (latlng == null) {
@@ -105,9 +101,9 @@ class ConnectFirstView : FrameLayout {
             request.isAllowGPS = true
             locationListener = object : TencentLocationListener {
                 override fun onLocationChanged(p0: TencentLocation?, p1: Int, p2: String?) {
-                    SharedPreferenceUtils.setLong("location_timestamp", System.currentTimeMillis())
-                    SharedPreferenceUtils.setFloat("location_lat", p0?.latitude?.toFloat() ?: 0.0f)
-                    SharedPreferenceUtils.setFloat("location_lng", p0?.longitude?.toFloat() ?: 0.0f)
+                    AnsSharedPreferenceUtils.setLong("location_timestamp", System.currentTimeMillis())
+                    AnsSharedPreferenceUtils.setFloat("location_lat", p0?.latitude?.toFloat() ?: 0.0f)
+                    AnsSharedPreferenceUtils.setFloat("location_lng", p0?.longitude?.toFloat() ?: 0.0f)
                     latlng = Latlng(p0?.latitude ?: 0.0, p0?.longitude ?: 0.0)
                     locationListener?.let {
                         mLocationManager?.removeUpdates(it)
@@ -213,13 +209,11 @@ class ConnectFirstView : FrameLayout {
     }
 
     private fun complete() {
-        Looper.myLooper()?.let {
-            Handler(it).postDelayed({
-                next?.setLoading(false)
-                alphaAnimation?.cancel()
-                listener?.complete(latlng)
-            }, 500)
-        }
+        AnsHandlerHelper.loop({
+            next?.setLoading(false)
+            alphaAnimation?.cancel()
+            listener?.complete(latlng)
+        }, 500)
     }
 
     fun viewShow(isShow: Boolean) {

@@ -9,7 +9,7 @@ import android.widget.Toast
 import com.yunzhiling.yzlconnect.R
 import kotlinx.android.synthetic.main.activity_web.*
 
-class WebActivity : CommonActivtiy() {
+class AnsWebActivity : AnsCommonActivtiy() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,20 +38,20 @@ class WebActivity : CommonActivtiy() {
         }
 
         val settings = webView.settings
-        settings.javaScriptEnabled = true
-        settings.javaScriptCanOpenWindowsAutomatically = true
-        settings.useWideViewPort = true
-        settings.loadWithOverviewMode = true
-        settings.builtInZoomControls = true
-        settings.blockNetworkImage = true
-        settings.allowFileAccess = false
-        settings.domStorageEnabled = true
-        settings.useWideViewPort = true
-        settings.loadWithOverviewMode = true
-        settings.setSupportZoom(true)
-        settings.displayZoomControls = false
-        settings.cacheMode = WebSettings.LOAD_DEFAULT
-        settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        settings?.javaScriptEnabled = true
+        settings?.javaScriptCanOpenWindowsAutomatically = true
+        settings?.useWideViewPort = true
+        settings?.loadWithOverviewMode = true
+        settings?.builtInZoomControls = true
+        settings?.blockNetworkImage = true
+        settings?.allowFileAccess = false
+        settings?.domStorageEnabled = true
+        settings?.useWideViewPort = true
+        settings?.loadWithOverviewMode = true
+        settings?.setSupportZoom(true)
+        settings?.displayZoomControls = false
+        settings?.cacheMode = WebSettings.LOAD_DEFAULT
+        settings?.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
         webView?.webViewClient = object : WebViewClient() {
 
             var isLoadError = false

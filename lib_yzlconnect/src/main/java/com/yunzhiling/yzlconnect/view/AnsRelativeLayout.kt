@@ -5,10 +5,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.animation.DecelerateInterpolator
+import android.widget.RelativeLayout
 import com.yunzhiling.yzlconnect.R
 import kotlin.math.abs
 
-open class AnButton: androidx.appcompat.widget.AppCompatTextView {
+open class AnsRelativeLayout : RelativeLayout {
 
     private var isClickDown: Boolean = false
     private var ocl: OnClickListener? = null
@@ -33,7 +34,7 @@ open class AnButton: androidx.appcompat.widget.AppCompatTextView {
     }
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context!!,
+        context,
         attrs,
         defStyleAttr
     ) {
@@ -54,13 +55,9 @@ open class AnButton: androidx.appcompat.widget.AppCompatTextView {
         }
     }
 
-    fun setTips(tips: String? = "") {
-        text = tips
-    }
-
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
 
-        if(!isEnabled) return super.dispatchTouchEvent(event)
+        if (!isEnabled) return super.dispatchTouchEvent(event)
 
         when (event?.action) {
             MotionEvent.ACTION_MOVE -> {

@@ -13,10 +13,13 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Log
 import androidx.core.app.ActivityCompat
+import java.util.concurrent.Executor
 
 class WifiManager {
 
@@ -153,7 +156,7 @@ class WifiManager {
                 val currentSsid = if (TextUtils.isEmpty(wifiInfo.ssid)) "" else wifiInfo.ssid
                 val targetSsid = "\"$ssid\""
                 if (TextUtils.equals(currentSsid, targetSsid) && !isCloseWifiConnect) {
-                    listener?.isSuccessful(true)
+                    listener?.isSuccessful(true,ssid,password)
                     return
                 }
             }
@@ -164,6 +167,7 @@ class WifiManager {
             //添加网络
             addNetwork(
                 ssid,
+                password,
                 wifiConfig,
                 listener
             )
@@ -172,6 +176,7 @@ class WifiManager {
 
         private fun addNetwork(
             ssid: String,
+            password:String,
             wifiConfiguration: WifiConfiguration?,
             listener: WifiConnectionListener?
         ) {
@@ -274,7 +279,7 @@ class WifiManager {
 
                                 }
                                 if (!isCloseWifiConnect) {
-                                    listener?.isSuccessful(true)
+                                    listener?.isSuccessful(true,ssid, password)
                                 }
                             } else {
                                 wifiManager?.disableNetwork(wifiInfo.networkId)
@@ -504,6 +509,7 @@ class WifiManager {
         }
 
         fun scanWifi(listener: WifiScanListener) {
+            Log.d("yzlconnect","scanWifi")
             closeScanWifi()
             scanWifiReceiver = object : BroadcastReceiver() {
                 override fun onReceive(contexts: Context?, intent: Intent?) {
@@ -544,7 +550,7 @@ class WifiManager {
 }
 
 interface WifiConnectionListener {
-    fun isSuccessful(isSuccess: Boolean)
+    fun isSuccessful(isSuccess: Boolean,ssid: String?=null,password: String? = null)
     fun connectError()
     fun openWifiError()
 }

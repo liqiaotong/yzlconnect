@@ -88,7 +88,7 @@
                             android:textColor="#FF000000"
                             android:textSize="15sp" />
 
-                        <com.yunzhiling.yzlconnect.view.AnLinearLayout
+                        <com.yunzhiling.yzlconnect.view.AnsLinearLayout
                             android:id="@+id/openWifiList"
                             android:layout_width="50dp"
                             android:layout_height="match_parent"
@@ -101,7 +101,7 @@
                                 android:scaleType="fitXY"
                                 android:src="@mipmap/icon_more" />
 
-                        </com.yunzhiling.yzlconnect.view.AnLinearLayout>
+                        </com.yunzhiling.yzlconnect.view.AnsLinearLayout>
 
                     </LinearLayout>
 
@@ -141,7 +141,7 @@
 
             </ScrollView>
 
-            <com.yunzhiling.yzlconnect.view.AnConfirmButton
+            <com.yunzhiling.yzlconnect.view.AnsConfirmButton
                 android:id="@+id/next"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

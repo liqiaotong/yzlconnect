@@ -22,16 +22,16 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".activity.ConnectActivity"
+            android:name=".activity.AnsConnectActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.ConnectModeSelectActivity"
+            android:name=".activity.AnsConnectModeSelectActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.WebActivity"
+            android:name=".activity.AnsWebActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

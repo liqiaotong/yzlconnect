@@ -5,24 +5,18 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.tencent.mmkv.MMKV
 import com.yunzhiling.yzlconnect.R
-import com.yunzhiling.yzlconnect.common.Config
-import com.yunzhiling.yzlconnect.service.WifiManager
-import kotlinx.android.synthetic.main.activity_connect.*
+import com.yunzhiling.yzlconnect.common.AnsConfig
 import kotlinx.android.synthetic.main.activity_mode_select.*
 import kotlinx.android.synthetic.main.activity_mode_select.back
-import kotlinx.android.synthetic.main.activity_web.*
 import kotlin.system.exitProcess
 
-class ConnectModeSelectActivity : CommonActivtiy() {
+class AnsConnectModeSelectActivity : AnsCommonActivtiy() {
 
     private var isAppMode = true
 
@@ -39,12 +33,12 @@ class ConnectModeSelectActivity : CommonActivtiy() {
         back?.setOnClickListener { finish() }
         idea?.setColorFilter(Color.parseColor("#a6a6a6"))
         autoConnect?.setOnClickListener {
-            val intent = Intent(this, ConnectActivity::class.java)
+            val intent = Intent(this, AnsConnectActivity::class.java)
             intent.putExtra("isAutoConnectMode", true)
             startActivity(intent)
         }
         manualConnect?.setOnClickListener {
-            startActivity(Intent(this, ConnectActivity::class.java))
+            startActivity(Intent(this, AnsConnectActivity::class.java))
         }
     }
 
@@ -52,7 +46,7 @@ class ConnectModeSelectActivity : CommonActivtiy() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             WebView(this)?.apply {
                 settings?.apply {
-                    setAppCachePath(Config.moreHelpUrl)
+                    setAppCachePath(AnsConfig.moreHelpUrl)
                     setAppCacheMaxSize(20 * 1024 * 1024)
                     setAppCacheEnabled(true)
                 }
@@ -61,7 +55,7 @@ class ConnectModeSelectActivity : CommonActivtiy() {
                         return false
                     }
                 }
-                loadUrl(Config.moreHelpUrl)
+                loadUrl(AnsConfig.moreHelpUrl)
             }
         }
     }

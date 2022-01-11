@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yzl">
 
-        <activity android:name="com.yunzhiling.yzlconnect.activity.ConnectModeSelectActivity">
+        <activity android:name="com.yunzhiling.yzlconnect.activity.AnsConnectModeSelectActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

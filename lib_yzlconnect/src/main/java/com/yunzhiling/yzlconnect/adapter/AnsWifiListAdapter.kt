@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.entity.WifiEntity
-import com.yunzhiling.yzlconnect.view.AnButton
-import com.yunzhiling.yzlconnect.view.AnLinearLayout
+import com.yunzhiling.yzlconnect.view.AnsButton
+import com.yunzhiling.yzlconnect.view.AnsLinearLayout
 
 class WifiListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -65,13 +65,13 @@ class WifiListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.wifiName)
         var frequency: TextView = view.findViewById(R.id.frequency)
-        var item: AnLinearLayout = view.findViewById(R.id.wifiItem)
+        var item: AnsLinearLayout = view.findViewById(R.id.wifiItem)
         var wifiLevel: ImageView = view.findViewById(R.id.wifiLevel)
         var line: View = view.findViewById(R.id.line)
     }
 
     class EmptyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var retry: AnButton = view.findViewById(R.id.retry_tv)
+        var retry: AnsButton = view.findViewById(R.id.retry_tv)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

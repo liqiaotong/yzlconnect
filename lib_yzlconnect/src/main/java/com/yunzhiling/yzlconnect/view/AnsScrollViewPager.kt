@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 
 
-class AnScrollViewPager : ViewPager {
+class AnsScrollViewPager : ViewPager {
 
     private var isCanScroll = false
 

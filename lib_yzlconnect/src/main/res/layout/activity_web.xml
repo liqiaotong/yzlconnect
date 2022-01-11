@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
-        <com.yunzhiling.yzlconnect.view.AnLinearLayout
+        <com.yunzhiling.yzlconnect.view.AnsLinearLayout
             android:id="@+id/back"
             android:layout_width="45dp"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/icon_back" />
 
-        </com.yunzhiling.yzlconnect.view.AnLinearLayout>
+        </com.yunzhiling.yzlconnect.view.AnsLinearLayout>
 
         <TextView
             android:id="@+id/tvTitle"
@@ -89,7 +89,7 @@
                 android:text="加载失败\n请检查网络是否可联网后加载重试"
                 android:textSize="16sp" />
 
-            <com.yunzhiling.yzlconnect.view.AnConfirmButton
+            <com.yunzhiling.yzlconnect.view.AnsConfirmButton
                 android:id="@+id/retryTv"
                 android:layout_width="130dp"
                 android:layout_height="40dp"

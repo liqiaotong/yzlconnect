@@ -11,11 +11,11 @@ import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
-import com.tencent.map.geolocation.s
 import com.yunzhiling.yzlconnect.R
-import com.yunzhiling.yzlconnect.common.Config
+import com.yunzhiling.yzlconnect.common.AnsConfig
 import com.yunzhiling.yzlconnect.entity.Latlng
 import com.yunzhiling.yzlconnect.service.*
+import com.yunzhiling.yzlconnect.utils.AnsHandlerHelper
 import kotlinx.android.synthetic.main.layout_connect_fourth.view.*
 
 class ConnectFourthView : FrameLayout {
@@ -109,11 +109,11 @@ class ConnectFourthView : FrameLayout {
 
     private fun connectWifi(delay: Long?) {
         fun wifiConnect(deviceWifi: Pair<String, String>?) {
-            Log.d("message", "wifi connect")
-            val ssid = connectWifi?.first ?: ""
-            val password = connectWifi?.second ?: ""
+            Log.d("yzlconnect", "----------->wifi connect")
+            val nssid = connectWifi?.first ?: ""
+            val npassword = connectWifi?.second ?: ""
             var deviceWifi = deviceWifi
-            if (deviceWifi == null) deviceWifi = Config.deviceWifis?.firstOrNull()
+            if (deviceWifi == null) deviceWifi = AnsConfig.deviceWifis?.firstOrNull()
             //开始连接wifi
             WifiManager?.checkWifiConnect(
                 deviceWifi?.first ?: "", deviceWifi?.second ?: "",
@@ -122,12 +122,12 @@ class ConnectFourthView : FrameLayout {
                 } else {
                     WifiManager.TYPE_WPA
                 }, object : WifiConnectionListener {
-                    override fun isSuccessful(isSuccess: Boolean) {
+                    override fun isSuccessful(isSuccess: Boolean,ssid: String?,password: String?) {
                         if (isSuccess) {
                             connectDeviceSuccess()
                             var port = if (!wifiSsidList.contains(ssid)) 10000 else 9999
                             //设备通信
-                            sendByUdp(port, ssid, password)
+                            sendByUdp(port, nssid, npassword)
                             //sendByTcp(port, ssid, password)
                         } else {
                             searchDeviceError()
@@ -145,25 +145,23 @@ class ConnectFourthView : FrameLayout {
             )
         }
 
-        Log.d("message", "connectWifi delay:$delay")
+        Log.d("yzlconnect", "----------->connectWifi delay:$delay")
 
-        Looper.myLooper()?.let {
-            Handler(it).postDelayed({
-                fun connect(deviceWifi: Pair<String, String>?) {
-                    Log.d("message", "check device wifi finish")
-                    wifiConnect(deviceWifi)
-                }
-                checkDeviceWifi({
-                    searchDeviceError()
-                }, { its ->
-                    connect(its)
-                })
-            }, delay ?: 0)
-        }
+        AnsHandlerHelper.loop({
+            fun connect(deviceWifi: Pair<String, String>?) {
+                Log.d("yzlconnect", "----------->check device wifi finish")
+                wifiConnect(deviceWifi)
+            }
+            checkDeviceWifi({
+                searchDeviceError()
+            }, { its->
+                connect(its)
+            })
+        }, delay ?: 0)
 
     }
 
-    private fun connectDeviceError(){
+    private fun connectDeviceError() {
         activity?.runOnUiThread {
             listener?.complete(code_connect_error)
         }
@@ -226,7 +224,7 @@ class ConnectFourthView : FrameLayout {
                     }
 
                     override fun timeout() {
-                        Log.d("message", "ui timeout")
+                        Log.d("yzlconnect", "----------->ui timeout")
                         connectTimeout()
                     }
                 })
@@ -271,14 +269,7 @@ class ConnectFourthView : FrameLayout {
         activity?.runOnUiThread {
             loading3?.visibility = View.GONE
             image3?.visibility = View.VISIBLE
-            Looper.myLooper()?.let {
-                Handler(it).postDelayed(
-                    {
-                        listener?.complete(code_success)
-                    },
-                    800
-                )
-            }
+            AnsHandlerHelper.loop({ listener?.complete(code_success) }, 800)
         }
     }
 
@@ -303,7 +294,7 @@ class ConnectFourthView : FrameLayout {
                     WifiManager.openWifi(object : WifiStatusListener {
                         override fun isWifiEnable(isWifiEnable: Boolean) {
                             WifiManager.closeOpenWifi()
-                            Log.d("message", "check devices wifi isWifiEnable:$isWifiEnable")
+                            Log.d("yzlconnect", "check devices wifi isWifiEnable:$isWifiEnable")
                             if(!isCheckDeviceWifi) return
                             if (isWifiEnable) {
                                 //wifi打开后获取列表
@@ -314,12 +305,12 @@ class ConnectFourthView : FrameLayout {
                                         wifiSsidList?.clear()
                                         wifiSsidList?.addAll(result?.map { it.SSID })
                                         //当前包含设备wifi
-                                        val deviceWifi = Config.deviceWifis?.firstOrNull {
+                                        val deviceWifi = AnsConfig.deviceWifis?.firstOrNull {
                                             result?.any { its ->
                                                 its.SSID?.contains(it.first, false) ?: false
                                             }
                                         }
-                                        Log.d("message", "check devices wifi device:${deviceWifi?.first ?: "null"}")
+                                        Log.d("yzlconnect", "check devices wifi device:${deviceWifi?.first ?: "null"}")
                                         deviceWifi?.let {
                                             nextAction?.let {
                                                 it(deviceWifi)
@@ -327,7 +318,7 @@ class ConnectFourthView : FrameLayout {
                                         } ?: run {
                                             if (currentCheckTimes < 10) {
                                                 currentCheckTimes++
-                                                check(2000)
+                                                check(3000)
                                             } else {
                                                 checkDeviceWifiNullAction?.let {
                                                     it()

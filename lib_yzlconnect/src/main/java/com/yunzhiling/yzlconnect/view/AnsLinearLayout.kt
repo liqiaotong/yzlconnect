@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import com.yunzhiling.yzlconnect.R
 import kotlin.math.abs
 
-open class AnLinearLayout : LinearLayout {
+open class AnsLinearLayout : LinearLayout {
 
     private var isClickDown: Boolean = false
     private var ocl: OnClickListener? = null

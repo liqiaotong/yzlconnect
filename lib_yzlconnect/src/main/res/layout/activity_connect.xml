@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
-        <com.yunzhiling.yzlconnect.view.AnLinearLayout
+        <com.yunzhiling.yzlconnect.view.AnsLinearLayout
             android:id="@+id/back"
             android:layout_width="45dp"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/icon_back" />
 
-        </com.yunzhiling.yzlconnect.view.AnLinearLayout>
+        </com.yunzhiling.yzlconnect.view.AnsLinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
             app:layout_constraintStart_toStartOf="@+id/cursor3"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.yunzhiling.yzlconnect.view.AnButton
+        <com.yunzhiling.yzlconnect.view.AnsButton
             android:id="@+id/cursor1"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.yunzhiling.yzlconnect.view.AnButton
+        <com.yunzhiling.yzlconnect.view.AnsButton
             android:id="@+id/cursor2"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -107,7 +107,7 @@
             app:layout_constraintRight_toLeftOf="@+id/cursor3"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.yunzhiling.yzlconnect.view.AnButton
+        <com.yunzhiling.yzlconnect.view.AnsButton
             android:id="@+id/cursor3"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -121,7 +121,7 @@
             app:layout_constraintRight_toLeftOf="@+id/cursor4"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.yunzhiling.yzlconnect.view.AnButton
+        <com.yunzhiling.yzlconnect.view.AnsButton
             android:id="@+id/cursor4"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -139,7 +139,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <com.yunzhiling.yzlconnect.view.AnScrollViewPager
+    <com.yunzhiling.yzlconnect.view.AnsScrollViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

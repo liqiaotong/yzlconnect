@@ -13,9 +13,9 @@ import android.widget.TextView
 import com.yunzhiling.yzlconnect.R
 
 
-class AnConfirmButton : FrameLayout {
+class AnsConfirmButton : FrameLayout {
 
-    private var layout: AnRelativeLayout? = null
+    private var layout: AnsRelativeLayout? = null
     private var progressBar: ProgressBar? = null
     private var tips: TextView? = null
     private var enable: Boolean = true

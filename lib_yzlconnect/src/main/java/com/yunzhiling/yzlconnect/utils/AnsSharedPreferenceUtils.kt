@@ -3,7 +3,7 @@ package com.yunzhiling.yzlconnect.utils
 import android.content.SharedPreferences
 import com.tencent.mmkv.MMKV
 
-object SharedPreferenceUtils {
+object AnsSharedPreferenceUtils {
 
         private val preferences: SharedPreferences by lazy {
             MMKV.defaultMMKV()

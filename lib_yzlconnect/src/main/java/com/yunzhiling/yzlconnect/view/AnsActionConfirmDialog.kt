@@ -13,7 +13,7 @@ import com.yunzhiling.yzlconnect.R
 class ActionConfirmDialog : Dialog {
 
     private var view: View? = null
-    private var confirm: AnConfirmButton? = null
+    private var confirm: AnsConfirmButton? = null
     private var title: TextView? = null
     private var content: TextView? = null
     private var isLoading: Boolean = false
@@ -49,7 +49,7 @@ class ActionConfirmDialog : Dialog {
                 listener?.confirm(this)
             }
         }
-        view?.findViewById<AnButton>(R.id.cancel)?.setOnClickListener {
+        view?.findViewById<AnsButton>(R.id.cancel)?.setOnClickListener {
             dismiss()
         }
     }

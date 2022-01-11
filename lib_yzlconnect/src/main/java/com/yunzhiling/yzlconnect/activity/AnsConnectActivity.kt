@@ -1,31 +1,21 @@
 package com.yunzhiling.yzlconnect.activity
 
 import android.graphics.Color
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.ViewPager
 import com.tencent.mmkv.MMKV
 import com.yunzhiling.yzlconnect.R
-import com.yunzhiling.yzlconnect.adapter.ViewPagerAdapter
-import com.yunzhiling.yzlconnect.common.Config
+import com.yunzhiling.yzlconnect.adapter.AnsViewPagerAdapter
 import com.yunzhiling.yzlconnect.entity.Latlng
 import com.yunzhiling.yzlconnect.service.WifiManager
 import com.yunzhiling.yzlconnect.view.*
 import kotlinx.android.synthetic.main.activity_connect.*
 import kotlinx.android.synthetic.main.activity_connect.back
-import kotlinx.android.synthetic.main.activity_web.*
-import kotlin.system.exitProcess
 
-class ConnectActivity : CommonActivtiy() {
+class AnsConnectActivity : AnsCommonActivtiy() {
 
     private val cursorUnSelect = Color.parseColor("#C2C2C2")
     private val cursorSelected = Color.parseColor("#3789FF")
@@ -97,7 +87,7 @@ class ConnectActivity : CommonActivtiy() {
             setListener(object : OnConnectFourthListener {
                 override fun complete(errorCode: Int) {
                     runOnUiThread {
-                        Log.d("message", "OnConnectFourthListener errorCode $errorCode")
+                        Log.d("yzlconnect","----------->OnConnectFourthListener errorCode $errorCode")
                         when (errorCode) {
                             ConnectFourthView.code_success -> {
                                 isConnectedSuccess = true
@@ -116,7 +106,7 @@ class ConnectActivity : CommonActivtiy() {
                         }
 
                         val turnToPage = if (isAutoConnectMode) 3 else 4
-                        Log.d("message", "OnConnectFourthListener turnToPage $turnToPage")
+                        Log.d("yzlconnect","----------->OnConnectFourthListener turnToPage $turnToPage")
                         viewPager?.setCurrentItem(turnToPage, true)
                     }
                 }
@@ -144,7 +134,7 @@ class ConnectActivity : CommonActivtiy() {
 
         viewPager?.setCanScroll(false)
         viewPager?.offscreenPageLimit = views.size
-        viewPager?.adapter = ViewPagerAdapter(views)
+        viewPager?.adapter = AnsViewPagerAdapter(views)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
 

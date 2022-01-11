@@ -14,8 +14,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.yunzhiling.yzlconnect.R
-import com.yunzhiling.yzlconnect.common.Config
-import com.yunzhiling.yzlconnect.entity.WifiEntity
+import com.yunzhiling.yzlconnect.common.AnsConfig
 import com.yunzhiling.yzlconnect.service.WifiManager
 import kotlinx.android.synthetic.main.layout_connect_thrid.view.*
 
@@ -95,12 +94,7 @@ class ConnectThridView : FrameLayout {
                         if (ssid.length > 1) ssid = ssid.replaceRange(0, 1, "")
                         if (ssid.length > 2) ssid =
                             ssid.replaceRange(ssid.length - 1, ssid.length, "")
-                        val ndeviceWifi = Config.deviceWifis?.firstOrNull { ita ->
-                            TextUtils.equals(
-                                ita.first,
-                                ssid
-                            )
-                        }
+                        val ndeviceWifi = AnsConfig.deviceWifis?.firstOrNull { ita -> TextUtils.equals(ita.first, ssid) }
                         setNextButtonStyle(ndeviceWifi != null)
                         if (ndeviceWifi != null && !TextUtils.equals(ndeviceWifi?.first, deviceWifi?.first)) {
                             deviceWifi = ndeviceWifi
@@ -119,6 +113,7 @@ class ConnectThridView : FrameLayout {
                 ccHandler?.postDelayed(it, delay ?: 0)
             }
         }
+
         if (ccHandler == null) ccHandler = Looper.myLooper()?.let { Handler(it) }
         if (ccRunnable == null) ccRunnable = Runnable {
             isWifiConnect()

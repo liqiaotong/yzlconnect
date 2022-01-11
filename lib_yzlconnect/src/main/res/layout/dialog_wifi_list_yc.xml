@@ -43,7 +43,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <com.yunzhiling.yzlconnect.view.AnButton
+                    <com.yunzhiling.yzlconnect.view.AnsButton
                         android:id="@+id/tv_addwifi"
                         android:layout_width="80dp"
                         android:layout_height="100dp"

@@ -58,7 +58,7 @@
                     android:textColor="#ff000000"
                     android:textSize="15sp" />
 
-                <com.yunzhiling.yzlconnect.view.AnButton
+                <com.yunzhiling.yzlconnect.view.AnsButton
                     android:id="@+id/passwordCopy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                     android:textColor="#ff000000"
                     android:textSize="15sp" />
 
-                <com.yunzhiling.yzlconnect.view.AnButton
+                <com.yunzhiling.yzlconnect.view.AnsButton
                     android:id="@+id/connect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/centerTipsm" />
 
-            <com.yunzhiling.yzlconnect.view.AnConfirmButton
+            <com.yunzhiling.yzlconnect.view.AnsConfirmButton
                 android:id="@+id/next"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

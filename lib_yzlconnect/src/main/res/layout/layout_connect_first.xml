@@ -92,7 +92,7 @@
 
             </RelativeLayout>
 
-            <com.yunzhiling.yzlconnect.view.AnConfirmButton
+            <com.yunzhiling.yzlconnect.view.AnsConfirmButton
                 android:id="@+id/next"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

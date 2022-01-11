@@ -5,8 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.net.wifi.ScanResult
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -15,18 +13,18 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import com.yunzhiling.yzlconnect.R
-import com.yunzhiling.yzlconnect.common.Config
+import com.yunzhiling.yzlconnect.common.AnsConfig
 import com.yunzhiling.yzlconnect.dialog.OnWifiListDialogListener
 import com.yunzhiling.yzlconnect.dialog.WifiListDialog
 import com.yunzhiling.yzlconnect.entity.WifiEntity
 import com.yunzhiling.yzlconnect.service.WifiManager
 import com.yunzhiling.yzlconnect.service.WifiScanListener
 import com.yunzhiling.yzlconnect.service.WifiStatusListener
+import com.yunzhiling.yzlconnect.utils.AnsHandlerHelper
 import kotlinx.android.synthetic.main.layout_connect_second.view.*
 import kotlinx.android.synthetic.main.layout_connect_second.view.layout
 import kotlinx.android.synthetic.main.layout_connect_second.view.next
 import kotlinx.android.synthetic.main.layout_connect_second.view.title
-import kotlinx.android.synthetic.main.layout_connect_thrid.view.*
 
 class ConnectSecondView : FrameLayout {
 
@@ -76,11 +74,7 @@ class ConnectSecondView : FrameLayout {
                 updateSelectWifiStyle("")
                 setSsidEditTextInputMode(true)
                 //调起输入法
-                Looper.myLooper()?.let {
-                    Handler(it).postDelayed({ showSoftKeyboard(this) }, 500)
-                } ?: run {
-                    showSoftKeyboard(this)
-                }
+                AnsHandlerHelper.loop({ showSoftKeyboard(this) }, 500)
             } else {
                 //自动填充模式
                 updateSelectWifiStyle(selectWifiInfo?.ssid ?: "", selectWifiInfo?.frequency ?: 0, selectWifiInfo?.isMix)
@@ -89,11 +83,7 @@ class ConnectSecondView : FrameLayout {
                     if (!TextUtils.isEmpty(ssidEt?.text ?: "")) {
                         requestFocus()
                         //调起输入法
-                        Looper.myLooper()?.let {
-                            Handler(it).postDelayed({ showSoftKeyboard(this) }, 500)
-                        } ?: run {
-                            showSoftKeyboard(this)
-                        }
+                        AnsHandlerHelper.loop({ showSoftKeyboard(this) }, 500)
                     }
                 }
             }
@@ -187,11 +177,7 @@ class ConnectSecondView : FrameLayout {
 
         next?.setLoading(false)
         fun showWifiListAction() {
-            Looper.myLooper()?.let {
-                Handler(it).postDelayed({ showWifiList() }, 500)
-            } ?: run {
-                showWifiList()
-            }
+            AnsHandlerHelper.loop({ showWifiList() }, 500)
         }
 
         setSsidEditTextInputMode(false)
@@ -204,7 +190,7 @@ class ConnectSecondView : FrameLayout {
                         var ssid = its.ssid
                         if (ssid.length > 1) ssid = ssid.replaceRange(0, 1, "")
                         if (ssid.length > 2) ssid = ssid.replaceRange(ssid.length - 1, ssid.length, "")
-                        if (Config.deviceWifis?.any { ita -> TextUtils.equals(ita.first, ssid) }) {
+                        if (AnsConfig.deviceWifis?.any { ita -> TextUtils.equals(ita.first, ssid) }) {
                             showWifiListAction()
                         } else {
                             var is2G: Boolean? = false
@@ -334,38 +320,32 @@ class ConnectSecondView : FrameLayout {
     }
 
     private fun checkDeviceWifi(nextAction: ((deviceWifi: Pair<String, String>?) -> Unit)?) {
-        Looper.myLooper()?.let { its ->
-            Handler(its).post {
-                WifiManager.openWifi(object : WifiStatusListener {
-                    override fun isWifiEnable(isWifiEnable: Boolean) {
-                        if (isWifiEnable) {
-                            //wifi打开后获取列表
-                            WifiManager.scanWifi(object : WifiScanListener {
-                                override fun result(result: List<ScanResult>) {
-                                    //当前包含设备wifi
-                                    val deviceWifi = Config.deviceWifis?.firstOrNull {
-                                        result?.any { its ->
-                                            its.SSID?.contains(it.first, false) ?: false
-                                        }
-                                    }
-                                    nextAction?.let {
-                                        it(deviceWifi)
-                                    }
-                                }
-                            })
-                        } else {
-                            nextAction?.let {
-                                it(null)
-                            }
-                        }
-                    }
-                })
-            }
-        } ?: run {
-            nextAction?.let {
-                it(null)
-            }
-        }
+       AnsHandlerHelper.loop({
+           WifiManager.openWifi(object : WifiStatusListener {
+               override fun isWifiEnable(isWifiEnable: Boolean) {
+                   if (isWifiEnable) {
+                       //wifi打开后获取列表
+                       WifiManager.scanWifi(object : WifiScanListener {
+                           override fun result(result: List<ScanResult>) {
+                               //当前包含设备wifi
+                               val deviceWifi = AnsConfig.deviceWifis?.firstOrNull {
+                                   result?.any { its ->
+                                       its.SSID?.contains(it.first, false) ?: false
+                                   }
+                               }
+                               nextAction?.let {
+                                   it(deviceWifi)
+                               }
+                           }
+                       })
+                   } else {
+                       nextAction?.let {
+                           it(null)
+                       }
+                   }
+               }
+           })
+       })
     }
 
 }

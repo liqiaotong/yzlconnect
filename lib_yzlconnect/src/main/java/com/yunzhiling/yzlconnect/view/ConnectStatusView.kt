@@ -9,8 +9,8 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.FrameLayout
 import com.yunzhiling.yzlconnect.R
-import com.yunzhiling.yzlconnect.activity.WebActivity
-import com.yunzhiling.yzlconnect.common.Config
+import com.yunzhiling.yzlconnect.activity.AnsWebActivity
+import com.yunzhiling.yzlconnect.common.AnsConfig
 import kotlinx.android.synthetic.main.layout_connect_status.view.*
 
 
@@ -83,9 +83,9 @@ class ConnectStatusView : FrameLayout {
         }
 
         more?.setOnClickListener {
-            val intent = Intent(context, WebActivity::class.java)
+            val intent = Intent(context, AnsWebActivity::class.java)
             intent.putExtra("title", "WiFi配置失败问题排查")
-            intent.putExtra("url", Config.moreHelpUrl)
+            intent.putExtra("url", AnsConfig.moreHelpUrl)
             context.startActivity(intent)
         }
 

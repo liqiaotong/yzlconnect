@@ -6,7 +6,7 @@ import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 
 
-open class CommonActivtiy : AppCompatActivity() {
+open class AnsCommonActivtiy : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()

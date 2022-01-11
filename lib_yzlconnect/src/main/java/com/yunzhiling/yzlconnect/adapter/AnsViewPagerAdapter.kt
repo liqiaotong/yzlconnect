@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 
-class ViewPagerAdapter(views:MutableList<View>) : PagerAdapter() {
+class AnsViewPagerAdapter(views:MutableList<View>) : PagerAdapter() {
 
     private var views:MutableList<View> = views
 
