@@ -57,7 +57,7 @@ class WifiListDialog : Dialog {
     }
 
     private fun initView() {
-        view = context?.let { LayoutInflater.from(it).inflate(R.layout.dialog_wifi_list_yc, null) }
+        view = context?.let { LayoutInflater.from(it).inflate(R.layout.dialog_ans_wifi_list, null) }
         recyclerview = view?.findViewById(R.id.recyclerview)
         refreshLayout = view?.findViewById(R.id.refreshLayout)
         wifiProgressBar = view?.findViewById(R.id.wifi_pb)

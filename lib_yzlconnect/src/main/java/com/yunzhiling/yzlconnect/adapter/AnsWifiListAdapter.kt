@@ -155,9 +155,9 @@ class WifiListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0) {
-            ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_wifi_list_item_yc, null))
+            ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_ans_wifi_list_item, null))
         } else {
-            EmptyViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_wifi_list_empty, parent, false))
+            EmptyViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_ans_wifi_list_empty, parent, false))
         }
     }
 

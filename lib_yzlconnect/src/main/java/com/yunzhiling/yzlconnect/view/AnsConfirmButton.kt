@@ -29,7 +29,7 @@ class AnsConfirmButton : FrameLayout {
     }
 
     private fun initView() {
-        inflate(context, R.layout.layout_confirm_button_yc, this)
+        inflate(context, R.layout.layout_ans_confirm_button, this)
         layout = findViewById(R.id.layout)
         progressBar = findViewById(R.id.progressBar)
         tips = findViewById(R.id.tips)

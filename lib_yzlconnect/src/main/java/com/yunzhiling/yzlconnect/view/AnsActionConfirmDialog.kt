@@ -40,7 +40,7 @@ class ActionConfirmDialog : Dialog {
     }
 
     private fun initView() {
-        view = context?.let{LayoutInflater.from(it).inflate(R.layout.dialog_action_confirm_yc, null)}
+        view = context?.let{LayoutInflater.from(it).inflate(R.layout.dialog_ans_action_confirm, null)}
         title = view?.findViewById(R.id.title)
         content = view?.findViewById(R.id.content)
         confirm = view?.findViewById(R.id.confirm)

@@ -12,8 +12,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.common.AnsConfig
-import kotlinx.android.synthetic.main.activity_mode_select.*
-import kotlinx.android.synthetic.main.activity_mode_select.back
+import kotlinx.android.synthetic.main.activity_ans_mode_select.*
 import kotlin.system.exitProcess
 
 class AnsConnectModeSelectActivity : AnsCommonActivtiy() {
@@ -22,7 +21,7 @@ class AnsConnectModeSelectActivity : AnsCommonActivtiy() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mode_select)
+        setContentView(R.layout.activity_ans_mode_select)
         initView()
         advanceLoadMoreHelp()
     }

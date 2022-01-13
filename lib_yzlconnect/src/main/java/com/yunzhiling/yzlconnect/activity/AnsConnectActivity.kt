@@ -12,8 +12,7 @@ import com.yunzhiling.yzlconnect.adapter.AnsViewPagerAdapter
 import com.yunzhiling.yzlconnect.entity.Latlng
 import com.yunzhiling.yzlconnect.service.WifiManager
 import com.yunzhiling.yzlconnect.view.*
-import kotlinx.android.synthetic.main.activity_connect.*
-import kotlinx.android.synthetic.main.activity_connect.back
+import kotlinx.android.synthetic.main.activity_ans_connect.*
 
 class AnsConnectActivity : AnsCommonActivtiy() {
 
@@ -27,7 +26,7 @@ class AnsConnectActivity : AnsCommonActivtiy() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_connect)
+        setContentView(R.layout.activity_ans_connect)
         MMKV.initialize(this)
         WifiManager.init(this)
         initView()

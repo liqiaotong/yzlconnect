@@ -7,13 +7,13 @@ import android.view.View
 import android.webkit.*
 import android.widget.Toast
 import com.yunzhiling.yzlconnect.R
-import kotlinx.android.synthetic.main.activity_web.*
+import kotlinx.android.synthetic.main.activity_ans_web.*
 
 class AnsWebActivity : AnsCommonActivtiy() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web)
+        setContentView(R.layout.activity_ans_web)
 
         val title = intent.getStringExtra("title")
         val url = intent.getStringExtra("url") ?: ""
