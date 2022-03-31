@@ -305,9 +305,23 @@ class ConnectFourthView : FrameLayout {
                                         wifiSsidList?.clear()
                                         wifiSsidList?.addAll(result?.map { it.SSID })
                                         //当前包含设备wifi
-                                        val deviceWifi = AnsConfig.deviceWifis?.firstOrNull {
-                                            result?.any { its ->
-                                                its.SSID?.contains(it.first, false) ?: false
+                                        var deviceWifi: Pair<String, String>? = null
+                                        run block@{
+                                            AnsConfig.deviceWifis?.forEach {
+                                                val configDeviceWifiSSID = it.first
+                                                val configDeviceWifiPWD = it.second
+                                                result?.forEach { its ->
+                                                    val searchWifiSSID = its.SSID
+                                                    if (searchWifiSSID?.contains(
+                                                            configDeviceWifiSSID,
+                                                            false
+                                                        ) == true
+                                                    ) {
+                                                        deviceWifi =
+                                                            Pair(searchWifiSSID, configDeviceWifiPWD)
+                                                        return@block
+                                                    }
+                                                }
                                             }
                                         }
                                         Log.d("yzlconnect", "check devices wifi device:${deviceWifi?.first ?: "null"}")

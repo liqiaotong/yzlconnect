@@ -77,7 +77,11 @@ class ConnectSecondView : FrameLayout {
                 AnsHandlerHelper.loop({ showSoftKeyboard(this) }, 500)
             } else {
                 //自动填充模式
-                updateSelectWifiStyle(selectWifiInfo?.ssid ?: "", selectWifiInfo?.frequency ?: 0, selectWifiInfo?.isMix)
+                updateSelectWifiStyle(
+                    selectWifiInfo?.ssid ?: "",
+                    selectWifiInfo?.frequency ?: 0,
+                    selectWifiInfo?.isMix
+                )
                 setSsidEditTextInputMode(false)
                 passwordEt?.apply {
                     if (!TextUtils.isEmpty(ssidEt?.text ?: "")) {
@@ -165,7 +169,8 @@ class ConnectSecondView : FrameLayout {
     }
 
     private fun closeSoftKeyboard() {
-        var imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        var imm: InputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if (imm.isActive && activity?.currentFocus != null) {
             activity?.currentFocus?.windowToken?.let {
                 imm.hideSoftInputFromWindow(it, InputMethodManager.HIDE_NOT_ALWAYS)
@@ -189,8 +194,14 @@ class ConnectSecondView : FrameLayout {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         var ssid = its.ssid
                         if (ssid.length > 1) ssid = ssid.replaceRange(0, 1, "")
-                        if (ssid.length > 2) ssid = ssid.replaceRange(ssid.length - 1, ssid.length, "")
-                        if (AnsConfig.deviceWifis?.any { ita -> TextUtils.equals(ita.first, ssid) }) {
+                        if (ssid.length > 2) ssid =
+                            ssid.replaceRange(ssid.length - 1, ssid.length, "")
+                        if (AnsConfig.deviceWifis?.any { ita ->
+                                TextUtils.equals(
+                                    ita.first,
+                                    ssid
+                                )
+                            }) {
                             showWifiListAction()
                         } else {
                             var is2G: Boolean? = false
@@ -259,11 +270,11 @@ class ConnectSecondView : FrameLayout {
             }
         }
 
-        if(isMix==true) isCurrentSelected5GWifi = false
+        if (isMix == true) isCurrentSelected5GWifi = false
 
-        if(isCurrentSelected5GWifi){
+        if (isCurrentSelected5GWifi) {
             next?.alpha = 0.2f
-        }else{
+        } else {
             next?.alpha = 1f
         }
 
@@ -277,16 +288,16 @@ class ConnectSecondView : FrameLayout {
             return
         }
         val regex = Regex("[{}\":,]")
-        if(regex.containsMatchIn(input = ssid) ){
+        if (regex.containsMatchIn(input = ssid)) {
             Toast.makeText(context, "WiFi名中有以下符号  {} \"\" :  , 无法配网", Toast.LENGTH_SHORT).show()
             return
         }
-        if(regex.containsMatchIn(password)){
+        if (regex.containsMatchIn(password)) {
             Toast.makeText(context, "密码中有以下符号  {} \"\" :  , 无法配网", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if(next?.alpha?:0f < 1f){
+        if (next?.alpha ?: 0f < 1f) {
             return
         }
 
@@ -302,7 +313,11 @@ class ConnectSecondView : FrameLayout {
                     currentWifiSSID = ssid
                 }
             }
-            listener?.complete(Pair(ssid, password), it, TextUtils.equals(currentWifiSSID, it?.first))
+            listener?.complete(
+                Pair(ssid, password),
+                it,
+                TextUtils.equals(currentWifiSSID, it?.first)
+            )
         }
     }
 
@@ -320,36 +335,54 @@ class ConnectSecondView : FrameLayout {
     }
 
     private fun checkDeviceWifi(nextAction: ((deviceWifi: Pair<String, String>?) -> Unit)?) {
-       AnsHandlerHelper.loop({
-           WifiManager.openWifi(object : WifiStatusListener {
-               override fun isWifiEnable(isWifiEnable: Boolean) {
-                   if (isWifiEnable) {
-                       //wifi打开后获取列表
-                       WifiManager.scanWifi(object : WifiScanListener {
-                           override fun result(result: List<ScanResult>) {
-                               //当前包含设备wifi
-                               val deviceWifi = AnsConfig.deviceWifis?.firstOrNull {
-                                   result?.any { its ->
-                                       its.SSID?.contains(it.first, false) ?: false
-                                   }
-                               }
-                               nextAction?.let {
-                                   it(deviceWifi)
-                               }
-                           }
-                       })
-                   } else {
-                       nextAction?.let {
-                           it(null)
-                       }
-                   }
-               }
-           })
-       })
+        AnsHandlerHelper.loop({
+            WifiManager.openWifi(object : WifiStatusListener {
+                override fun isWifiEnable(isWifiEnable: Boolean) {
+                    if (isWifiEnable) {
+                        //wifi打开后获取列表
+                        WifiManager.scanWifi(object : WifiScanListener {
+                            override fun result(result: List<ScanResult>) {
+                                //当前包含设备wifi
+                                var deviceWifi: Pair<String, String>? = null
+                                run block@{
+                                    AnsConfig.deviceWifis?.forEach {
+                                        val configDeviceWifiSSID = it.first
+                                        val configDeviceWifiPWD = it.second
+                                        result?.forEach { its ->
+                                            val searchWifiSSID = its.SSID
+                                            if (searchWifiSSID?.contains(
+                                                    configDeviceWifiSSID,
+                                                    false
+                                                ) == true
+                                            ) {
+                                                deviceWifi =
+                                                    Pair(searchWifiSSID, configDeviceWifiPWD)
+                                                return@block
+                                            }
+                                        }
+                                    }
+                                }
+                                nextAction?.let {
+                                    it(deviceWifi)
+                                }
+                            }
+                        })
+                    } else {
+                        nextAction?.let {
+                            it(null)
+                        }
+                    }
+                }
+            })
+        })
     }
 
 }
 
 interface OnConnectSecondListener {
-    fun complete(connectWifi: Pair<String, String>?, deviceWifi: Pair<String, String>?, isConnectedDevice: Boolean? = false)
+    fun complete(
+        connectWifi: Pair<String, String>?,
+        deviceWifi: Pair<String, String>?,
+        isConnectedDevice: Boolean? = false
+    )
 }

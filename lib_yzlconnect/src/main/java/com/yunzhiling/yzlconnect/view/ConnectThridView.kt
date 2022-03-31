@@ -94,16 +94,23 @@ class ConnectThridView : FrameLayout {
                         if (ssid.length > 1) ssid = ssid.replaceRange(0, 1, "")
                         if (ssid.length > 2) ssid =
                             ssid.replaceRange(ssid.length - 1, ssid.length, "")
-                        val ndeviceWifi = AnsConfig.deviceWifis?.firstOrNull { ita -> TextUtils.equals(ita.first, ssid) }
-                        setNextButtonStyle(ndeviceWifi != null)
-                        if (ndeviceWifi != null && !TextUtils.equals(ndeviceWifi?.first, deviceWifi?.first)) {
-                            deviceWifi = ndeviceWifi
-                            updateStyle()
+                        if (deviceWifi == null) {
+                            let let@{
+                                AnsConfig.deviceWifis?.forEach { iit ->
+                                    if (ssid.contains(iit.first)) {
+                                        deviceWifi = iit
+                                        return@let
+                                    }
+                                }
+                            }
                         }
+                        val isSameWifi = deviceWifi?.first?.let { ivs -> ssid?.contains(ivs) }
+                        setNextButtonStyle(isSameWifi == true)
                     } else {
                         setNextButtonStyle(true)
                     }
                 }
+                updateStyle()
             }
         }
 
@@ -160,11 +167,14 @@ class ConnectThridView : FrameLayout {
         }
 
         deviceWifi?.let {
-            when (it.first) {
-                "yzl_smart_bell" -> {
+            when {
+                TextUtils.equals(it.first, "yzl_smart_bell") -> {
                     smart()
                 }
-                "A01_YZL" -> {
+                TextUtils.equals(it.first, "A01_YZL") -> {
+                    a01()
+                }
+                it.first.contains("A01_YZL") -> {
                     a01()
                 }
                 else -> {
