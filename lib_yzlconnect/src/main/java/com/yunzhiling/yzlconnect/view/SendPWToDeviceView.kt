@@ -6,6 +6,7 @@ import android.app.Activity
 import android.net.wifi.ScanResult
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -108,63 +109,56 @@ class SendPWToDeviceView : FrameLayout {
 
     private fun connectWifi(delay: Long?) {
 
-        AnsHandlerHelper.loop({
+        fun wifiConnect(deviceWifi: Pair<String, String>?) {
+            Log.d("yzlconnect", "----------->wifi connect")
             val nssid = connectWifi?.first ?: ""
             val npassword = connectWifi?.second ?: ""
-            sendByUdp(10000,nssid, npassword)
-        },5000)
+            var deviceWifi = deviceWifi
+            if (deviceWifi == null) deviceWifi = AnsConfig.deviceWifis?.firstOrNull()
+            //开始连接wifi
+            WifiManager?.checkWifiConnect(
+                deviceWifi?.first ?: "", deviceWifi?.second ?: "",
+                if (TextUtils.isEmpty(deviceWifi?.second)) {
+                    WifiManager.TYPE_NO_PASSWD
+                } else {
+                    WifiManager.TYPE_WPA
+                }, object : WifiConnectionListener {
+                    override fun isSuccessful(isSuccess: Boolean, ssid: String?, password: String?) {
+                        if (isSuccess) {
+                            connectDeviceSuccess()
+                            var port = if (!wifiSsidList.contains(ssid)) 10000 else 9999
+                            //设备通信
+                            sendByUdp(port, nssid, npassword)
+                            //sendByTcp(port, ssid, password)
+                        } else {
+                            searchDeviceError()
+                        }
+                    }
 
+                    override fun connectError() {
+                        searchDeviceError()
+                    }
 
-//        fun wifiConnect(deviceWifi: Pair<String, String>?) {
-//            Log.d("yzlconnect", "----------->wifi connect")
-//            val nssid = connectWifi?.first ?: ""
-//            val npassword = connectWifi?.second ?: ""
-//            var deviceWifi = deviceWifi
-//            if (deviceWifi == null) deviceWifi = AnsConfig.deviceWifis?.firstOrNull()
-//            //开始连接wifi
-//            WifiManager?.checkWifiConnect(
-//                deviceWifi?.first ?: "", deviceWifi?.second ?: "",
-//                if (TextUtils.isEmpty(deviceWifi?.second)) {
-//                    WifiManager.TYPE_NO_PASSWD
-//                } else {
-//                    WifiManager.TYPE_WPA
-//                }, object : WifiConnectionListener {
-//                    override fun isSuccessful(isSuccess: Boolean, ssid: String?, password: String?) {
-//                        if (isSuccess) {
-//                            connectDeviceSuccess()
-//                            var port = if (!wifiSsidList.contains(ssid)) 10000 else 9999
-//                            //设备通信
-//                            sendByUdp(port, nssid, npassword)
-//                            //sendByTcp(port, ssid, password)
-//                        } else {
-//                            searchDeviceError()
-//                        }
-//                    }
-//
-//                    override fun connectError() {
-//                        searchDeviceError()
-//                    }
-//
-//                    override fun openWifiError() {
-//                        connectDeviceError()
-//                    }
-//                }
-//            )
-//        }
-//
-//        Log.d("yzlconnect", "----------->connectWifi delay:$delay")
-//
-//        AnsHandlerHelper.loop({
-//            fun connect(deviceWifi: Pair<String, String>?) {
-//                Log.d("yzlconnect", "----------->check device wifi finish")
-//                wifiConnect(deviceWifi)
-//            }
-//            checkDeviceWifi({
-//                searchDeviceError()
-//            }, { its ->
-//                connect(its)
-//            })
-//        }, delay ?: 0)
+                    override fun openWifiError() {
+                        connectDeviceError()
+                    }
+                }
+            )
+        }
+
+        Log.d("yzlconnect", "----------->connectWifi delay:$delay")
+
+        AnsHandlerHelper.loop({
+            fun connect(deviceWifi: Pair<String, String>?) {
+                Log.d("yzlconnect", "----------->check device wifi finish")
+                wifiConnect(deviceWifi)
+            }
+            checkDeviceWifi({
+                searchDeviceError()
+            }, { its ->
+                connect(its)
+            })
+        }, delay ?: 0)
 
     }
 
