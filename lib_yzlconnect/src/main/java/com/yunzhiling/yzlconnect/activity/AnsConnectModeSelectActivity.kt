@@ -33,12 +33,19 @@ class AnsConnectModeSelectActivity : AnsCommonActivtiy() {
         idea?.setColorFilter(Color.parseColor("#a6a6a6"))
         autoConnect?.setOnClickListener {
             val intent = Intent(this, AnsConnectActivity::class.java)
-            intent.putExtra("isAutoConnectMode", true)
+            intent.putExtra("ConnectMode", "AutoConnect")
             startActivity(intent)
         }
         manualConnect?.setOnClickListener {
-            startActivity(Intent(this, AnsConnectActivity::class.java))
+            val intent = Intent(this, AnsConnectActivity::class.java)
+            intent.putExtra("ConnectMode", "DefaultConnect")
+            startActivity(intent)
         }
+//        bluetoothConnect?.setOnClickListener {
+//            val intent = Intent(this, AnsConnectActivity::class.java)
+//            intent.putExtra("ConnectMode", "BluetoothConnect")
+//            startActivity(intent)
+//        }
     }
 
     private fun advanceLoadMoreHelp() {

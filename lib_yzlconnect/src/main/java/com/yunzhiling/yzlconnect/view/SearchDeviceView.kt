@@ -18,7 +18,7 @@ import com.yunzhiling.yzlconnect.common.AnsConfig
 import com.yunzhiling.yzlconnect.service.WifiManager
 import kotlinx.android.synthetic.main.layout_connect_thrid.view.*
 
-class ConnectThridView : FrameLayout {
+class SearchDeviceView : FrameLayout {
 
     private var isViewShow = false
     private val tips0 = "点击右侧链接按钮，前往WiFi设置界面，连接yzl_smart_bell或A01_YZL热点，返回程序"
@@ -31,11 +31,11 @@ class ConnectThridView : FrameLayout {
     private val devicePassword = "ivali_yzl_2020"
     private var activity: Activity? = null
     private var deviceWifi: Pair<String, String>? = null
-    private var listener: OnConnectThridListener? = null
+    private var listener: OnSearchDeviceListener? = null
     private var ccHandler: Handler? = null
     private var ccRunnable: Runnable? = null
 
-    fun setListener(listener: OnConnectThridListener?) {
+    fun setListener(listener: OnSearchDeviceListener?) {
         this.listener = listener
     }
 
@@ -204,6 +204,6 @@ class ConnectThridView : FrameLayout {
     }
 }
 
-interface OnConnectThridListener {
+interface OnSearchDeviceListener {
     fun complete()
 }

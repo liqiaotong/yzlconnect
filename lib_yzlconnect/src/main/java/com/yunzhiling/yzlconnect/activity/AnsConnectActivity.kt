@@ -2,6 +2,7 @@ package com.yunzhiling.yzlconnect.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -21,6 +22,7 @@ class AnsConnectActivity : AnsCommonActivtiy() {
     private val cursorUnSelectBackground = R.drawable.background_corners_solid_c2c2c2
     private val cursorSelectedBackground = R.drawable.background_corners_solid_3789ff
     private var isAutoConnectMode = false
+    private var connectMode:String? = "DefaultMode"
     private var isConnectedSuccess = false
 
 
@@ -33,34 +35,35 @@ class AnsConnectActivity : AnsCommonActivtiy() {
     }
 
     private fun initView() {
-        isAutoConnectMode = intent.getBooleanExtra("isAutoConnectMode", false)
+        connectMode = intent.getStringExtra("ConnectMode")
+        isAutoConnectMode = TextUtils.equals(connectMode,"AutoConnect")
         back?.setOnClickListener {
             backAction()
         }
 
-        var connectFirstView: ConnectFirstView?
-        var connectSecondView: ConnectSecondView?
-        var connectThridView: ConnectThridView? = null
-        var connectFourthView: ConnectFourthView? = null
+        var getLocationView: GetLocationView?
+        var getTargetWFView: GetTargetWFView?
+        var searchDeviceView: SearchDeviceView? = null
+        var sendPWToDeviceView: SendPWToDeviceView? = null
         var connectStatusView: ConnectStatusView? = null
 
-        connectFirstView = ConnectFirstView(this).apply {
-            setListener(object : OnConnectFirstListener {
+        getLocationView = GetLocationView(this).apply {
+            setListener(object : OnGetLocationListener {
                 override fun complete(latlng: Latlng?) {
-                    connectFourthView?.setLatlng(latlng)
+                    sendPWToDeviceView?.setLatlng(latlng)
                     viewPager?.currentItem = 1
                 }
             })
         }
-        connectSecondView = ConnectSecondView(this, isAutoConnectMode).apply {
-            setListener(object : OnConnectSecondListener {
+        getTargetWFView = GetTargetWFView(this, isAutoConnectMode).apply {
+            setListener(object : OnGetTargetWFViewListener {
                 override fun complete(
                     connectWifi: Pair<String, String>?,
                     deviceWifi: Pair<String, String>?,
                     isConnectedDevice: Boolean?
                 ) {
-                    connectFourthView?.setConnectWifi(connectWifi)
-                    connectThridView?.setDeviceWifi(deviceWifi)
+                    sendPWToDeviceView?.setConnectWifi(connectWifi)
+                    searchDeviceView?.setDeviceWifi(deviceWifi)
                     if (isAutoConnectMode) {
                         viewPager?.currentItem = 2
                     } else {
@@ -74,31 +77,31 @@ class AnsConnectActivity : AnsCommonActivtiy() {
             })
         }
         if (!isAutoConnectMode) {
-            connectThridView = ConnectThridView(this).apply {
-                setListener(object : OnConnectThridListener {
+            searchDeviceView = SearchDeviceView(this).apply {
+                setListener(object : OnSearchDeviceListener {
                     override fun complete() {
                         viewPager?.currentItem = 3
                     }
                 })
             }
         }
-        connectFourthView = ConnectFourthView(this).apply {
-            setListener(object : OnConnectFourthListener {
+        sendPWToDeviceView = SendPWToDeviceView(this).apply {
+            setListener(object : OnSendPWToDeviceListener {
                 override fun complete(errorCode: Int) {
                     runOnUiThread {
                         Log.d("yzlconnect","----------->OnConnectFourthListener errorCode $errorCode")
                         when (errorCode) {
-                            ConnectFourthView.code_success -> {
+                            SendPWToDeviceView.code_success -> {
                                 isConnectedSuccess = true
                                 connectStatusView?.setStatus(0)
                             }
-                            ConnectFourthView.code_fail,
-                            ConnectFourthView.code_connect_error,
-                            ConnectFourthView.code_search_device_error -> {
+                            SendPWToDeviceView.code_fail,
+                            SendPWToDeviceView.code_connect_error,
+                            SendPWToDeviceView.code_search_device_error -> {
                                 isConnectedSuccess = false
                                 connectStatusView?.setStatus(1)
                             }
-                            ConnectFourthView.code_timeout -> {
+                            SendPWToDeviceView.code_timeout -> {
                                 isConnectedSuccess = false
                                 connectStatusView?.setStatus(2)
                             }
@@ -124,10 +127,10 @@ class AnsConnectActivity : AnsCommonActivtiy() {
         }
 
         val views = arrayListOf(
-            connectFirstView as View?,
-            connectSecondView as View?,
-            connectThridView as View?,
-            connectFourthView as View?,
+            getLocationView as View?,
+            getTargetWFView as View?,
+            searchDeviceView as View?,
+            sendPWToDeviceView as View?,
             connectStatusView as View?
         )?.filterNotNull()?.toMutableList()
 
@@ -141,17 +144,17 @@ class AnsConnectActivity : AnsCommonActivtiy() {
 
             override fun onPageSelected(p: Int) {
                 cursorProgress(p)
-                connectFirstView?.viewShow(p == 0)
-                connectSecondView?.viewShow(p == 1)
+                getLocationView?.viewShow(p == 0)
+                getTargetWFView?.viewShow(p == 1)
                 if (isAutoConnectMode) {
-                    connectFourthView?.viewShow(p == 2)
+                    sendPWToDeviceView?.viewShow(p == 2)
                     connectStatusView?.viewShow(p == 3)
                     if (p != 3) {
                         isConnectedSuccess = false
                     }
                 } else {
-                    connectThridView?.viewShow(p == 2)
-                    connectFourthView?.viewShow(p == 3)
+                    searchDeviceView?.viewShow(p == 2)
+                    sendPWToDeviceView?.viewShow(p == 3)
                     connectStatusView?.viewShow(p == 4)
                     if (p != 4) {
                         isConnectedSuccess = false
@@ -164,6 +167,9 @@ class AnsConnectActivity : AnsCommonActivtiy() {
             }
         })
         cursorProgress(0)
+
+//        sendPWToDeviceView?.setConnectWifi(Pair("ivali.com","ivali1806wf"))
+//        viewPager?.currentItem = 3
     }
 
 

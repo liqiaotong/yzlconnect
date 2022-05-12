@@ -19,7 +19,7 @@ import com.yunzhiling.yzlconnect.utils.AnsHandlerHelper
 import com.yunzhiling.yzlconnect.utils.AnsSharedPreferenceUtils
 import kotlinx.android.synthetic.main.layout_connect_first.view.*
 
-class ConnectFirstView : FrameLayout {
+class GetLocationView : FrameLayout {
 
     private var isViewShow = false
     private var activity: AppCompatActivity? = null
@@ -27,11 +27,11 @@ class ConnectFirstView : FrameLayout {
     private var mLocationManager: TencentLocationManager? = null
     private var locationListener: TencentLocationListener? = null
     private var noPermissionDialog: ActionConfirmDialog? = null
-    private var listener: OnConnectFirstListener? = null
+    private var listener: OnGetLocationListener? = null
     private var latlng: Latlng? = null
     private var isTurn: Boolean = false
 
-    fun setListener(listener: OnConnectFirstListener?) {
+    fun setListener(listener: OnGetLocationListener?) {
         this.listener = listener
     }
 
@@ -237,6 +237,6 @@ class ConnectFirstView : FrameLayout {
 
 }
 
-interface OnConnectFirstListener {
+interface OnGetLocationListener {
     fun complete(latlng: Latlng?)
 }

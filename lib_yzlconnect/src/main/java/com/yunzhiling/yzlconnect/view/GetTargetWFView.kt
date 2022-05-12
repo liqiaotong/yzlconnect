@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.layout_connect_second.view.layout
 import kotlinx.android.synthetic.main.layout_connect_second.view.next
 import kotlinx.android.synthetic.main.layout_connect_second.view.title
 
-class ConnectSecondView : FrameLayout {
+class GetTargetWFView : FrameLayout {
 
     private var isViewShow = false
     private var activity: Activity? = null
@@ -34,10 +34,10 @@ class ConnectSecondView : FrameLayout {
     private var selectWifiInfo: WifiEntity? = null
     private var mWifiListDialog: WifiListDialog? = null
     private var wifiInfoList: MutableList<WifiEntity> = ArrayList()
-    private var listener: OnConnectSecondListener? = null
+    private var listener: OnGetTargetWFViewListener? = null
     private var isAutoConnectMode: Boolean? = false
 
-    fun setListener(listener: OnConnectSecondListener?) {
+    fun setListener(listener: OnGetTargetWFViewListener?) {
         this.listener = listener
     }
 
@@ -379,7 +379,7 @@ class ConnectSecondView : FrameLayout {
 
 }
 
-interface OnConnectSecondListener {
+interface OnGetTargetWFViewListener {
     fun complete(
         connectWifi: Pair<String, String>?,
         deviceWifi: Pair<String, String>?,
