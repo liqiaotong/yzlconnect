@@ -21,10 +21,7 @@ import com.yunzhiling.yzlconnect.service.WifiManager
 import com.yunzhiling.yzlconnect.service.WifiScanListener
 import com.yunzhiling.yzlconnect.service.WifiStatusListener
 import com.yunzhiling.yzlconnect.utils.AnsHandlerHelper
-import kotlinx.android.synthetic.main.layout_connect_second.view.*
-import kotlinx.android.synthetic.main.layout_connect_second.view.layout
-import kotlinx.android.synthetic.main.layout_connect_second.view.next
-import kotlinx.android.synthetic.main.layout_connect_second.view.title
+import kotlinx.android.synthetic.main.layout_get_target_wf.view.*
 
 class GetTargetWFView : FrameLayout {
 
@@ -44,7 +41,7 @@ class GetTargetWFView : FrameLayout {
     constructor(activity: Activity, isAutoConnectMode: Boolean? = false) : super(activity) {
         this.activity = activity
         this.isAutoConnectMode = isAutoConnectMode
-        inflate(activity, R.layout.layout_connect_second, this)
+        inflate(activity, R.layout.layout_get_target_wf, this)
         initView()
     }
 

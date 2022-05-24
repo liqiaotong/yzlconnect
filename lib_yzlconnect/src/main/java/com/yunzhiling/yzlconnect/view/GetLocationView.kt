@@ -17,7 +17,7 @@ import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.entity.Latlng
 import com.yunzhiling.yzlconnect.utils.AnsHandlerHelper
 import com.yunzhiling.yzlconnect.utils.AnsSharedPreferenceUtils
-import kotlinx.android.synthetic.main.layout_connect_first.view.*
+import kotlinx.android.synthetic.main.layout_get_location.view.*
 
 class GetLocationView : FrameLayout {
 
@@ -37,7 +37,7 @@ class GetLocationView : FrameLayout {
 
     constructor(activity: AppCompatActivity) : super(activity) {
         this.activity = activity
-        inflate(activity, R.layout.layout_connect_first, this)
+        inflate(activity, R.layout.layout_get_location, this)
         initView()
     }
 
@@ -55,41 +55,41 @@ class GetLocationView : FrameLayout {
                 }
             })
         }
-        startLightAnimation()
+        //startLightAnimation()
 
         AnsHandlerHelper.loop({ getPermission() }, 300)
 
         getLocation()
     }
 
-    @SuppressLint("WrongConstant")
-    private fun startLightAnimation() {
-        light?.let {
-            if (alphaAnimation == null) {
-                alphaAnimation = ObjectAnimator.ofFloat(it, "alpha", 0f, 1f, 0f)?.apply {
-                    duration = 1500
-                    repeatCount = ObjectAnimator.INFINITE
-                    repeatMode = ObjectAnimator.INFINITE
-                    interpolator = AccelerateDecelerateInterpolator()
-                }
-            }
-            if (alphaAnimation?.isRunning != true) alphaAnimation?.start()
-        }
-    }
+//    @SuppressLint("WrongConstant")
+//    private fun startLightAnimation() {
+//        light?.let {
+//            if (alphaAnimation == null) {
+//                alphaAnimation = ObjectAnimator.ofFloat(it, "alpha", 0f, 1f, 0f)?.apply {
+//                    duration = 1500
+//                    repeatCount = ObjectAnimator.INFINITE
+//                    repeatMode = ObjectAnimator.INFINITE
+//                    interpolator = AccelerateDecelerateInterpolator()
+//                }
+//            }
+//            if (alphaAnimation?.isRunning != true) alphaAnimation?.start()
+//        }
+//    }
 
     private fun getLocation() {
 
         val locationTimestamp = AnsSharedPreferenceUtils.getLong("location_timestamp")
-        if (locationTimestamp != null && locationTimestamp > 0 && (System.currentTimeMillis() - locationTimestamp) <= (1000 * 60 * 15/*15分钟*/)) {
+        latlng = if (locationTimestamp != null && locationTimestamp > 0 && (System.currentTimeMillis() - locationTimestamp) <= (1000 * 60 * 15/*15分钟*/)) {
             val locationLat = AnsSharedPreferenceUtils.getFloat("location_lat")
             val locationLng = AnsSharedPreferenceUtils.getFloat("location_lng")
             if (locationLat > 0 && locationLng > 0) {
-                latlng = Latlng(locationLat.toDouble(), locationLng.toDouble())
+                Latlng(locationLat.toDouble(), locationLng.toDouble())
             } else {
-                latlng = null
+                null
             }
         } else {
-            latlng = null
+            null
         }
 
         if (latlng == null) {
@@ -221,7 +221,7 @@ class GetLocationView : FrameLayout {
         if (isShow) {
             isTurn = false
             next?.setLoading(false)
-            startLightAnimation()
+            //startLightAnimation()
             getLocation()
         } else {
             if (isViewShow) {

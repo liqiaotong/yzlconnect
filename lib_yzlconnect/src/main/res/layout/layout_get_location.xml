@@ -24,7 +24,7 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="将设备设置为配网模式"
+                android:text="开启设备&#034;配网模式&#034;"
                 android:textColor="#ff000000"
                 android:textSize="17sp"
                 android:textStyle="bold"
@@ -35,8 +35,8 @@
                 android:id="@+id/tips1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="1、设备接通电源，开启设备"
+                android:layout_marginTop="20dp"
+                android:text="1、设备通电并开启（配网时设备尽量靠近路由器）"
                 android:textColor="#ff000000"
                 android:textSize="15sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -47,22 +47,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="2、长按设备配网按钮，切换设备至配网模式"
+                android:text="2、长按主机配网键3秒（如下图），至设备播报提示&#034;已启用配网模式&#034;"
                 android:textColor="#ff000000"
                 android:textSize="15sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tips1" />
 
-            <TextView
-                android:id="@+id/tips3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="3、设备三灯闪烁，即进入配网模式"
-                android:textColor="#ff000000"
-                android:textSize="15sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tips2" />
+<!--            <TextView-->
+<!--                android:id="@+id/tips3"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:text="3、设备三灯闪烁，即进入配网模式"-->
+<!--                android:textColor="#ff000000"-->
+<!--                android:textSize="15sp"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tips2" />-->
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
@@ -73,22 +73,22 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/next"
-                app:layout_constraintTop_toBottomOf="@id/tips3">
+                app:layout_constraintTop_toBottomOf="@id/tips2">
 
                 <ImageView
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
                     android:scaleType="centerInside"
                     android:src="@mipmap/icon_device_tips" />
 
-                <ImageView
-                    android:id="@+id/light"
-                    android:layout_width="200dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerInside"
-                    android:src="@mipmap/icon_deivce_light" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/light"-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scaleType="centerInside"-->
+<!--                    android:src="@mipmap/icon_deivce_light" />-->
 
             </RelativeLayout>
 

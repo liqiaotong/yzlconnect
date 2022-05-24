@@ -169,7 +169,7 @@ class AnsConnectActivity : AnsCommonActivtiy() {
         cursorProgress(0)
 
 //        sendPWToDeviceView?.setConnectWifi(Pair("ivali.com","ivali1806wf"))
-//        viewPager?.currentItem = 3
+//        viewPager?.currentItem = 2
     }
 
 

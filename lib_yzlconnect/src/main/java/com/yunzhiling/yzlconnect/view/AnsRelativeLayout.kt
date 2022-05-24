@@ -11,8 +11,8 @@ import kotlin.math.abs
 
 open class AnsRelativeLayout : RelativeLayout {
 
+
     private var isClickDown: Boolean = false
-    private var ocl: OnClickListener? = null
 
     //按钮动画
     private var scaleStart: Float = 1f
@@ -28,10 +28,8 @@ open class AnsRelativeLayout : RelativeLayout {
     private var scrollX: Float = 0f
     private var scrollY: Float = 0f
     private val cancelPressMaxScroll: Float = 10f
-
-    init {
-        setOnTouchListener { _, _ -> true }
-    }
+    private var nextClickInterval = 500
+    private var currentClickTimestamp = 0L
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
@@ -55,9 +53,9 @@ open class AnsRelativeLayout : RelativeLayout {
         }
     }
 
-    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
 
-        if (!isEnabled) return super.dispatchTouchEvent(event)
+        if (!isEnabled) return super.onTouchEvent(event)
 
         when (event?.action) {
             MotionEvent.ACTION_MOVE -> {
@@ -85,7 +83,7 @@ open class AnsRelativeLayout : RelativeLayout {
                 setClick(false)
             }
         }
-        return super.dispatchTouchEvent(event)
+        return true
     }
 
     private fun setClick(isAnimationClick: Boolean, isEventClick: Boolean = false) {
@@ -101,15 +99,12 @@ open class AnsRelativeLayout : RelativeLayout {
             //开启松手动画
             startAnimation(false)
             //松手才回调事件ACTION_UP
-            if (isEventClick) {
-                ocl?.onClick(this)
+            val interval = System.currentTimeMillis()-currentClickTimestamp
+            if (isEventClick && interval>=nextClickInterval) {
+                currentClickTimestamp = System.currentTimeMillis()
+                performClick()
             }
-
         }
-    }
-
-    override fun setOnClickListener(l: OnClickListener?) {
-        ocl = l
     }
 
     private fun startAnimation(isClick: Boolean) {
@@ -147,5 +142,6 @@ open class AnsRelativeLayout : RelativeLayout {
         scale?.start()
 
     }
+
 
 }

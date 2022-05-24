@@ -5,4 +5,18 @@
         <attr name="av_scaleEnd" format="float" />
         <attr name="av_duration" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="AnsC452View">
+        <attr name="ax_color" format="float" />
+        <attr name="ax_point_number" format="integer" />
+        <attr name="ax_duration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="AnsC536View">
+        <attr name="ac_color" format="float" />
+        <attr name="ac_start_angle" format="float" />
+        <attr name="ac_end_angle" format="float" />
+        <attr name="ac_duration" format="integer" />
+    </declare-styleable>
+
 </resources>

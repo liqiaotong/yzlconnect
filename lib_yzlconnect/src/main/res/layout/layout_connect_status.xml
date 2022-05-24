@@ -92,44 +92,44 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/detail" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/successDetailLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="30dp"
-                        android:maxWidth="168dp"
-                        android:maxHeight="200dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/more">
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/successDetailLayout"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:layout_marginTop="30dp"-->
+<!--                        android:maxWidth="168dp"-->
+<!--                        android:maxHeight="200dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/more">-->
 
-                        <ImageView
-                            android:id="@+id/light"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_alignParentTop="true"
-                            android:scaleType="fitCenter"
-                            android:src="@mipmap/connect_success_image"
-                            app:layout_constraintBottom_toTopOf="@+id/lightTips"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+<!--                        <ImageView-->
+<!--                            android:id="@+id/light"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="0dp"-->
+<!--                            android:layout_alignParentTop="true"-->
+<!--                            android:scaleType="fitCenter"-->
+<!--                            android:src="@mipmap/connect_success_image"-->
+<!--                            app:layout_constraintBottom_toTopOf="@+id/lightTips"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
 
-                        <TextView
-                            android:id="@+id/lightTips"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="18dp"
-                            android:text="主机右侧两灯亮起"
-                            android:textColor="#ff000000"
-                            android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/light" />
+<!--                        <TextView-->
+<!--                            android:id="@+id/lightTips"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="18dp"-->
+<!--                            android:text="主机右侧两灯亮起"-->
+<!--                            android:textColor="#ff000000"-->
+<!--                            android:textSize="14sp"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/light" />-->
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

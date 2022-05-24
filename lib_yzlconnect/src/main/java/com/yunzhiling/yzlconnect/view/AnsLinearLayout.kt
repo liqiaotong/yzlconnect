@@ -12,7 +12,6 @@ import kotlin.math.abs
 open class AnsLinearLayout : LinearLayout {
 
     private var isClickDown: Boolean = false
-    private var ocl: OnClickListener? = null
 
     //按钮动画
     private var scaleStart: Float = 1f
@@ -28,10 +27,8 @@ open class AnsLinearLayout : LinearLayout {
     private var scrollX: Float = 0f
     private var scrollY: Float = 0f
     private val cancelPressMaxScroll: Float = 10f
-
-    init {
-        setOnTouchListener { _, _ -> true }
-    }
+    private var nextClickInterval = 500
+    private var currentClickTimestamp = 0L
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
@@ -55,9 +52,9 @@ open class AnsLinearLayout : LinearLayout {
         }
     }
 
-    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
 
-        if (!isEnabled) return super.dispatchTouchEvent(event)
+        if (!isEnabled) return super.onTouchEvent(event)
 
         when (event?.action) {
             MotionEvent.ACTION_MOVE -> {
@@ -85,7 +82,7 @@ open class AnsLinearLayout : LinearLayout {
                 setClick(false)
             }
         }
-        return super.dispatchTouchEvent(event)
+        return true
     }
 
     private fun setClick(isAnimationClick: Boolean, isEventClick: Boolean = false) {
@@ -101,15 +98,12 @@ open class AnsLinearLayout : LinearLayout {
             //开启松手动画
             startAnimation(false)
             //松手才回调事件ACTION_UP
-            if (isEventClick) {
-                ocl?.onClick(this)
+            val interval = System.currentTimeMillis()-currentClickTimestamp
+            if (isEventClick && interval>=nextClickInterval) {
+                currentClickTimestamp = System.currentTimeMillis()
+                performClick()
             }
-
         }
-    }
-
-    override fun setOnClickListener(l: OnClickListener?) {
-        ocl = l
     }
 
     private fun startAnimation(isClick: Boolean) {

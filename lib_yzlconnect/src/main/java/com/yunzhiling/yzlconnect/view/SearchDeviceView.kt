@@ -16,7 +16,7 @@ import android.widget.Toast
 import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.common.AnsConfig
 import com.yunzhiling.yzlconnect.service.WifiManager
-import kotlinx.android.synthetic.main.layout_connect_thrid.view.*
+import kotlinx.android.synthetic.main.layout_search_device.view.*
 
 class SearchDeviceView : FrameLayout {
 
@@ -41,7 +41,7 @@ class SearchDeviceView : FrameLayout {
 
     constructor(activity: Activity) : super(activity) {
         this.activity = activity
-        inflate(activity, R.layout.layout_connect_thrid, this)
+        inflate(activity, R.layout.layout_search_device, this)
         initView()
     }
 

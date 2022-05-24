@@ -1,7 +1,5 @@
 package com.yunzhiling.yzlconnect.view
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.app.Activity
 import android.net.wifi.ScanResult
 import android.os.Handler
@@ -9,14 +7,13 @@ import android.os.Looper
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import com.yunzhiling.yzlconnect.R
 import com.yunzhiling.yzlconnect.common.AnsConfig
 import com.yunzhiling.yzlconnect.entity.Latlng
 import com.yunzhiling.yzlconnect.service.*
 import com.yunzhiling.yzlconnect.utils.AnsHandlerHelper
-import kotlinx.android.synthetic.main.layout_connect_fourth.view.*
+import kotlinx.android.synthetic.main.layout_send_wf_to_device.view.*
 
 class SendPWToDeviceView : FrameLayout {
 
@@ -31,7 +28,7 @@ class SendPWToDeviceView : FrameLayout {
     private var isViewShow = false
     private var activity: Activity? = null
     private var listener: OnSendPWToDeviceListener? = null
-    private var waveAnimation: ValueAnimator? = null
+//    private var waveAnimation: ValueAnimator? = null
     private var wifiSsidList: MutableList<String> = ArrayList()
     private var connectWifi: Pair<String, String>? = null
     private var latlng: Latlng? = null
@@ -42,7 +39,7 @@ class SendPWToDeviceView : FrameLayout {
 
     constructor(activity: Activity) : super(activity) {
         this.activity = activity
-        inflate(activity, R.layout.layout_connect_fourth, this)
+        inflate(activity, R.layout.layout_send_wf_to_device, this)
     }
 
     fun setLatlng(latlng: Latlng?) {
@@ -53,50 +50,50 @@ class SendPWToDeviceView : FrameLayout {
         this.connectWifi = connectWifi
     }
 
-    private fun stopWaveAnimation() {
-        waveAnimation?.let { it.cancel() }
-    }
-
-    private fun startWaveAnimation() {
-        if (waveAnimation == null) {
-            waveAnimation = ValueAnimator.ofFloat(0f, 0f, 1f, 2f, 3f, 4f, 5f)?.apply {
-                duration = 3000
-                repeatCount = ObjectAnimator.INFINITE
-                interpolator = DecelerateInterpolator()
-                addUpdateListener {
-                    val progress = it.animatedValue as Float
-                    when {
-                        progress == 0f -> {
-                            wave0?.alpha = 0f
-                            wave1?.alpha = 0f
-                            wave2?.alpha = 0f
-                            wave3?.alpha = 0f
-                        }
-                        progress <= 1f -> {
-                            wave0?.alpha = progress
-                        }
-                        progress <= 2f -> {
-                            wave1?.alpha = progress - 1f
-                        }
-                        progress <= 3f -> {
-                            wave2?.alpha = progress - 2f
-                        }
-                        progress <= 4f -> {
-                            wave3?.alpha = progress - 3f
-                        }
-                        progress <= 5f -> {
-                            val alpha = 1f - (progress - 4f)
-                            wave0?.alpha = alpha
-                            wave1?.alpha = alpha
-                            wave2?.alpha = alpha
-                            wave3?.alpha = alpha
-                        }
-                    }
-                }
-            }
-        }
-        if (waveAnimation?.isRunning != true) waveAnimation?.start()
-    }
+//    private fun stopWaveAnimation() {
+//        waveAnimation?.let { it.cancel() }
+//    }
+//
+//    private fun startWaveAnimation() {
+//        if (waveAnimation == null) {
+//            waveAnimation = ValueAnimator.ofFloat(0f, 0f, 1f, 2f, 3f, 4f, 5f)?.apply {
+//                duration = 3000
+//                repeatCount = ObjectAnimator.INFINITE
+//                interpolator = DecelerateInterpolator()
+//                addUpdateListener {
+//                    val progress = it.animatedValue as Float
+//                    when {
+//                        progress == 0f -> {
+//                            wave0?.alpha = 0f
+//                            wave1?.alpha = 0f
+//                            wave2?.alpha = 0f
+//                            wave3?.alpha = 0f
+//                        }
+//                        progress <= 1f -> {
+//                            wave0?.alpha = progress
+//                        }
+//                        progress <= 2f -> {
+//                            wave1?.alpha = progress - 1f
+//                        }
+//                        progress <= 3f -> {
+//                            wave2?.alpha = progress - 2f
+//                        }
+//                        progress <= 4f -> {
+//                            wave3?.alpha = progress - 3f
+//                        }
+//                        progress <= 5f -> {
+//                            val alpha = 1f - (progress - 4f)
+//                            wave0?.alpha = alpha
+//                            wave1?.alpha = alpha
+//                            wave2?.alpha = alpha
+//                            wave3?.alpha = alpha
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        if (waveAnimation?.isRunning != true) waveAnimation?.start()
+//    }
 
     private fun closeConnect() {
         isCheckDeviceWifi = false
@@ -367,12 +364,16 @@ class SendPWToDeviceView : FrameLayout {
         if (isShow) {
             isViewShow = true
             restoreStyle()
-            startWaveAnimation()
+            //startWaveAnimation()
+            ccView?.startRotate()
+            point?.startRun()
             connectWifi(300)
         } else {
             if (isViewShow) {
                 isViewShow = false
-                stopWaveAnimation()
+                //stopWaveAnimation()
+                ccView?.endRotate()
+                point?.endRun()
             }
         }
 
