@@ -52,7 +52,7 @@ class ConnectStatusView : FrameLayout {
                 spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#0A7FFF")), 4, tipsContent.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
                 detail?.text = spannableString
                 more?.visibility = View.GONE
-                confirm?.setTips("确认")
+                confirm?.setTips("完成")
                 confirm?.setOnClickListener {
                     listener?.complete()
                 }
