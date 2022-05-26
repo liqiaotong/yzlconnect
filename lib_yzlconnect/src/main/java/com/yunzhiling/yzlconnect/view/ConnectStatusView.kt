@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import com.yunzhiling.yzlconnect.R
@@ -51,6 +52,7 @@ class ConnectStatusView : FrameLayout {
                 val spannableString = SpannableStringBuilder(tipsContent)
                 spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#0A7FFF")), 4, tipsContent.length, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
                 detail?.text = spannableString
+                detail?.gravity = Gravity.CENTER
                 more?.visibility = View.GONE
                 confirm?.setTips("完成")
                 confirm?.setOnClickListener {
@@ -63,6 +65,7 @@ class ConnectStatusView : FrameLayout {
                 //successDetailLayout?.visibility = View.GONE
                 detail?.visibility = View.VISIBLE
                 detail?.text = "1、确认设备处于配网模式（三灯闪烁）\n2、核对WiFi密码是否正确\n3、确认WiFi是否为2.4G或混频频段"
+                detail?.gravity = Gravity.LEFT
                 more?.visibility = View.VISIBLE
                 confirm?.setTips("重新配网")
                 confirm?.setOnClickListener {
@@ -78,6 +81,7 @@ class ConnectStatusView : FrameLayout {
                 spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#0A7FFF")), 4, 19, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
                 spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#0A7FFF")), 38, 46, Spanned.SPAN_EXCLUSIVE_INCLUSIVE)
                 detail?.text = spannableString
+                detail?.gravity = Gravity.LEFT
                 more?.visibility = View.VISIBLE
                 confirm?.setTips("重新配网")
                 confirm?.setOnClickListener {
